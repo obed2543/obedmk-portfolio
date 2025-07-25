@@ -2,39 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Portfolio Design System - Data Analytics Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core brand colors */
+    --background: 220 20% 4%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 8%;
+    --card-foreground: 210 40% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 210 40% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Data-inspired primary colors */
+    --primary: 200 100% 60%;
+    --primary-foreground: 220 20% 4%;
+    --primary-glow: 200 100% 70%;
+    
+    --secondary: 260 60% 65%;
+    --secondary-foreground: 220 20% 4%;
+    
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 20% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 45 100% 65%;
+    --accent-foreground: 220 20% 4%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 15%;
+    --input: 220 15% 12%;
+    --ring: 200 100% 60%;
+    
+    /* Portfolio-specific colors */
+    --skill-python: 45 100% 50%;
+    --skill-data: 200 100% 60%;
+    --skill-ml: 260 60% 65%;
+    --skill-bi: 45 100% 65%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(200 100% 60%), hsl(260 60% 65%));
+    --gradient-card: linear-gradient(145deg, hsl(220 15% 8%), hsl(220 15% 12%));
+    --gradient-skill: linear-gradient(90deg, hsl(200 100% 60%), hsl(45 100% 65%));
+    
+    /* Shadows and effects */
+    --glow-primary: 0 0 20px hsl(200 100% 60% / 0.3);
+    --glow-secondary: 0 0 30px hsl(260 60% 65% / 0.2);
+    --shadow-card: 0 10px 30px hsl(220 20% 4% / 0.3);
 
     --radius: 0.5rem;
 
