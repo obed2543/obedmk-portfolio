@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +19,11 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
+  useEffect(() => {
+    // Initialize EmailJS
+    emailjs.init('pWDXK2_XOb3orLcQw');
+  }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -23,19 +31,67 @@ const ContactSection = () => {
     });
   };
 
+  const sendEmail = async () => {
+    const bodyMessage = `
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9;">
+      <div style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div style="background-color: #007bff; color: #ffffff; border-radius: 10px 10px 0 0; padding: 20px;">
+          <h2 style="margin: 0;">Contact Form Submission</h2>
+        </div>
+        <div style="padding: 20px;">
+          <p style="margin-bottom: 10px;"><strong>Full Name:</strong> ${formData.name}</p>
+          <p style="margin-bottom: 10px;"><strong>Email:</strong> ${formData.email}</p>
+          <p style="margin-bottom: 10px;"><strong>Phone Number:</strong> ${formData.phone}</p>
+          <p style="margin-bottom: 10px;"><strong>Subject:</strong> ${formData.subject}</p>
+          <p style="margin-bottom: 10px;"><strong>Message:</strong> ${formData.message}</p>
+        </div>
+        <div style="background-color: #007bff; color: #ffffff; border-radius: 0 0 10px 10px; padding: 10px;">
+        <span style="margin: 0;">&copy;Obed Makori</span>
+      </div>
+      </div>
+    </div>
+  `;
+
+    const params = {
+      email: formData.email,
+      subject: formData.subject,
+      phone: formData.phone,
+      bodyMessage: bodyMessage,
+      from_name: formData.name,
+      message: formData.message
+    };
+
+    try {
+      const result = await emailjs.send("service_0n3ny6o", "template_86mv30o", params);
+      
+      if (result.text === "OK") {
+        await Swal.fire({
+          title: "Success!",
+          text: "Thank you for your message! Message sent successfully!",
+          icon: "success"
+        });
+        
+        // Send auto-reply
+        await emailjs.send("service_0n3ny6o", "template_g7tvztb", params);
+        
+        // Reset form
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      }
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thanks for reaching out. I'll get back to you soon!",
-      });
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-      setIsSubmitting(false);
-    }, 1000);
+    await sendEmail();
+    setIsSubmitting(false);
   };
 
   const contactInfo = [
@@ -63,18 +119,30 @@ const ContactSection = () => {
     <section id="contact" className="py-20 bg-card/50">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">
             Get In <span className="text-primary">Touch</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Ready to transform your data into actionable insights? Let's discuss your project and explore how we can work together.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <motion.div 
+            className="space-y-8"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <div>
               <h3 className="text-2xl font-semibold mb-6">Let's Connect</h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
@@ -135,10 +203,16 @@ const ContactSection = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <Card className="bg-background border-border">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <Card className="bg-background border-border">
             <CardHeader>
               <CardTitle className="text-2xl">Send Me a Message</CardTitle>
             </CardHeader>
@@ -227,7 +301,8 @@ const ContactSection = () => {
                 </Button>
               </form>
             </CardContent>
-          </Card>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </section>
