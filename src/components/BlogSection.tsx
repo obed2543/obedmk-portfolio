@@ -69,8 +69,8 @@ const BlogSection = () => {
   const categories = ["All", "Machine Learning", "Data Analysis", "Visualization", "Data Engineering", "Industry Trends", "Database"];
 
   return (
-    <section id="blogs" className="py-20 bg-background">
-      <div className="container mx-auto px-6">
+    <section id="blogs" className="py-20 lg:py-32 bg-card/50 dark:bg-card/30">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">
@@ -151,6 +151,11 @@ const BlogSection = () => {
                     variant="ghost" 
                     size="sm"
                     className="text-primary hover:bg-primary hover:text-primary-foreground group-hover:translate-x-1 transition-transform duration-200"
+                    onClick={() => {
+                      // For now, this could expand the card or navigate to a full blog post
+                      // You can implement your blog reading logic here
+                      console.log(`Reading blog: ${blog.title}`);
+                    }}
                   >
                     Read More
                     <i className="fas fa-arrow-right ml-2 text-xs" />
@@ -166,6 +171,10 @@ const BlogSection = () => {
           <Button 
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            onClick={() => {
+              // Add logic to load more blog posts
+              console.log('Loading more articles...');
+            }}
           >
             Load More Articles
           </Button>

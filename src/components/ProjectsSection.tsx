@@ -45,8 +45,8 @@ const ProjectsSection = () => {
   const categories = ['All', 'Machine Learning', 'Data Analysis', 'Business Intelligence'];
 
   return (
-    <section id="projects" className="py-20 bg-background">
-      <div className="container mx-auto px-6">
+    <section id="projects" className="py-20 lg:py-32 bg-background">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">

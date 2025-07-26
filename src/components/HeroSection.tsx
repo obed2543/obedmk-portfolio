@@ -38,13 +38,13 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen bg-gradient-hero flex items-center justify-center relative overflow-hidden">
+    <section id="home" className="min-h-screen w-full bg-gradient-hero dark:bg-gradient-hero flex items-center justify-center relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         {[...Array(50)].map((_, i) => (
           <div
             key={i}
-            className="absolute bg-white rounded-full animate-float"
+            className="absolute bg-foreground dark:bg-background rounded-full animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -57,17 +57,17 @@ const HeroSection = () => {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center z-10 min-h-screen">
         {/* Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center lg:text-left space-y-8"
+          className="text-center lg:text-left space-y-8 lg:py-12"
         >
-          <div className="space-y-4">
+          <div className="space-y-6">
             <motion.h1 
-              className="text-5xl lg:text-7xl font-bold text-white leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground dark:text-background leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -90,13 +90,13 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="text-3xl lg:text-4xl text-white/90"
+                className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-muted-foreground dark:text-muted-foreground"
               >
-                <span ref={typedRef} className="text-accent"></span>
+                <span ref={typedRef} className="text-accent bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent font-semibold"></span>
               </motion.div>
             </motion.h1>
             <motion.p 
-              className="text-xl text-white/80 max-w-2xl"
+              className="text-lg lg:text-xl text-muted-foreground dark:text-muted-foreground max-w-3xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
@@ -115,7 +115,7 @@ const HeroSection = () => {
             <Button 
               onClick={scrollToContact}
               size="lg"
-              className="bg-white text-primary hover:bg-white/90 shadow-glow-white px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow-primary px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
             >
               Get In Touch
               <i className="fas fa-paper-plane ml-2" />
@@ -125,7 +125,7 @@ const HeroSection = () => {
               onClick={scrollToProjects}
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-primary px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
+              className="border-foreground text-foreground hover:bg-foreground hover:text-background dark:border-background dark:text-background dark:hover:bg-background dark:hover:text-foreground px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
             >
               View Portfolio
               <i className="fas fa-arrow-down ml-2" />
@@ -149,7 +149,7 @@ const HeroSection = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-glow-white"
+                className="w-12 h-12 border border-foreground/30 dark:border-background/30 rounded-full flex items-center justify-center text-foreground dark:text-background hover:bg-foreground hover:text-background dark:hover:bg-background dark:hover:text-foreground transition-all duration-300 hover:scale-110 hover:shadow-glow-primary"
                 aria-label={social.label}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -165,17 +165,32 @@ const HeroSection = () => {
 
         {/* Image Content */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex justify-center lg:justify-end"
+          initial={{ opacity: 0, x: 50, scale: 0.8 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 100 }}
+          className="flex justify-center lg:justify-end relative"
         >
-          <div className="relative">
+          <div className="relative w-full max-w-lg">
+            {/* Glowing background effects */}
             <motion.div 
-              className="w-80 h-80 lg:w-96 lg:h-96 relative"
+              className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-secondary/20 rounded-full blur-3xl"
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{ 
+                duration: 4,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+            
+            <motion.div 
+              className="w-80 h-80 lg:w-96 lg:h-96 xl:w-[400px] xl:h-[400px] relative z-10"
               animate={{ 
                 rotateY: [0, 10, 0, -10, 0],
-                rotateX: [0, 5, 0, -5, 0]
+                rotateX: [0, 5, 0, -5, 0],
+                y: [0, -10, 0]
               }}
               transition={{ 
                 duration: 6,
@@ -185,65 +200,115 @@ const HeroSection = () => {
             >
               {/* Floating elements around the image */}
               <motion.div 
-                className="absolute -top-4 -left-4 w-8 h-8 bg-accent rounded-lg"
+                className="absolute -top-6 -left-6 w-12 h-12 bg-gradient-to-br from-accent to-primary rounded-2xl shadow-lg"
                 animate={{ 
-                  y: [0, -10, 0],
-                  rotate: [0, 180, 360]
+                  y: [0, -15, 0],
+                  rotate: [0, 180, 360],
+                  scale: [1, 1.1, 1]
                 }}
                 transition={{ 
-                  duration: 3,
+                  duration: 4,
                   repeat: Infinity,
                   repeatType: "reverse"
                 }}
               />
               <motion.div 
-                className="absolute -top-2 right-8 w-6 h-6 bg-white rounded-full"
+                className="absolute -top-2 right-8 w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full shadow-lg"
                 animate={{ 
-                  y: [0, -15, 0],
-                  x: [0, 5, 0]
+                  y: [0, -20, 0],
+                  x: [0, 10, 0],
+                  scale: [1, 1.2, 1]
                 }}
                 transition={{ 
-                  duration: 4,
+                  duration: 5,
                   repeat: Infinity,
                   repeatType: "reverse",
                   delay: 1
                 }}
               />
               <motion.div 
-                className="absolute bottom-8 -left-2 w-4 h-4 bg-accent rounded-full"
+                className="absolute bottom-8 -left-4 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full shadow-lg"
                 animate={{ 
-                  y: [0, -8, 0],
-                  scale: [1, 1.2, 1]
+                  y: [0, -12, 0],
+                  scale: [1, 1.3, 1],
+                  rotate: [0, 180, 0]
                 }}
                 transition={{ 
-                  duration: 2.5,
+                  duration: 3,
                   repeat: Infinity,
                   repeatType: "reverse",
                   delay: 0.5
                 }}
               />
+              <motion.div 
+                className="absolute -bottom-4 right-4 w-10 h-10 bg-gradient-to-br from-accent to-secondary rounded-lg shadow-lg"
+                animate={{ 
+                  y: [0, -8, 0],
+                  x: [0, -5, 0],
+                  rotate: [0, -90, 0]
+                }}
+                transition={{ 
+                  duration: 3.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 2
+                }}
+              />
               
               <motion.div 
-                className="w-full h-full bg-gradient-to-br from-white/20 to-white/10 rounded-3xl backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-2xl"
-                whileHover={{ scale: 1.05 }}
+                className="w-full h-full bg-gradient-to-br from-card/40 to-card/20 dark:from-card/60 dark:to-card/40 rounded-3xl backdrop-blur-sm border border-border/50 flex items-center justify-center shadow-card relative overflow-hidden"
+                whileHover={{ scale: 1.02, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
+                {/* Inner glow effect */}
                 <motion.div 
-                  className="w-72 h-72 lg:w-80 lg:h-80 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center text-8xl lg:text-9xl font-bold text-white shadow-inner"
+                  className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 rounded-3xl"
                   animate={{ 
-                    boxShadow: [
-                      "0 0 20px rgba(59, 130, 246, 0.5)",
-                      "0 0 40px rgba(59, 130, 246, 0.8)",
-                      "0 0 20px rgba(59, 130, 246, 0.5)"
-                    ]
+                    opacity: [0.3, 0.6, 0.3]
                   }}
                   transition={{ 
-                    duration: 2,
+                    duration: 3,
                     repeat: Infinity,
                     repeatType: "reverse"
                   }}
+                />
+                
+                <motion.div 
+                  className="w-72 h-72 lg:w-80 lg:h-80 xl:w-88 xl:h-88 bg-gradient-to-br from-accent via-primary to-secondary rounded-2xl flex items-center justify-center text-7xl lg:text-8xl xl:text-9xl font-bold text-primary-foreground shadow-glow-primary relative z-10"
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 30px hsl(var(--primary) / 0.4)",
+                      "0 0 60px hsl(var(--primary) / 0.7)",
+                      "0 0 30px hsl(var(--primary) / 0.4)"
+                    ],
+                    rotateY: [0, 5, 0, -5, 0]
+                  }}
+                  transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 80px hsl(var(--primary) / 0.8)"
+                  }}
                 >
-                  O
+                  <motion.span
+                    animate={{ 
+                      textShadow: [
+                        "0 0 20px hsl(var(--accent) / 0.5)",
+                        "0 0 40px hsl(var(--accent) / 0.8)",
+                        "0 0 20px hsl(var(--accent) / 0.5)"
+                      ]
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
+                    O
+                  </motion.span>
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -257,9 +322,9 @@ const HeroSection = () => {
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-foreground/50 dark:border-background/50 rounded-full flex justify-center">
           <motion.div 
-            className="w-1 h-3 bg-white rounded-full mt-2"
+            className="w-1 h-3 bg-foreground dark:bg-background rounded-full mt-2"
             animate={{ opacity: [1, 0, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />

@@ -27,8 +27,8 @@ const WorkSection = () => {
   ];
 
   return (
-    <section id="work" className="py-20 bg-card/50">
-      <div className="container mx-auto px-6">
+    <section id="work" className="py-20 lg:py-32 bg-card/50 dark:bg-card/30">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">
@@ -78,6 +78,12 @@ const WorkSection = () => {
                 <Button 
                   variant="outline"
                   className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground group-hover:shadow-glow-primary transition-all duration-300"
+                  onClick={() => {
+                    const projectsSection = document.getElementById('projects');
+                    if (projectsSection) {
+                      projectsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   See Projects
                   <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-200" />
