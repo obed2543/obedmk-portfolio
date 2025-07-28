@@ -67,7 +67,7 @@ const HeroSection = () => {
         >
           <div className="space-y-6">
             <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground dark:text-background leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -90,13 +90,13 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-muted-foreground dark:text-muted-foreground"
+                className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-muted-foreground"
               >
-                <span ref={typedRef} className="text-accent bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent font-semibold"></span>
+                <span ref={typedRef} className="text-accent font-semibold"></span>
               </motion.div>
             </motion.h1>
             <motion.p 
-              className="text-lg lg:text-xl text-muted-foreground dark:text-muted-foreground max-w-3xl mx-auto lg:mx-0"
+              className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
@@ -150,7 +150,7 @@ const HeroSection = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 border border-foreground/30 dark:border-background/30 rounded-full flex items-center justify-center text-foreground dark:text-background hover:bg-foreground hover:text-background dark:hover:bg-background dark:hover:text-foreground transition-all duration-300 hover:scale-110 hover:shadow-glow-primary"
+                className="w-12 h-12 border border-border rounded-full flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
                 aria-label={social.label}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -323,9 +323,9 @@ const HeroSection = () => {
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="w-6 h-10 border-2 border-foreground/50 dark:border-background/50 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
           <motion.div 
-            className="w-1 h-3 bg-foreground dark:bg-background rounded-full mt-2"
+            className="w-1 h-3 bg-muted-foreground rounded-full mt-2"
             animate={{ opacity: [1, 0, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
