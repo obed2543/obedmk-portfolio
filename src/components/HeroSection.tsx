@@ -38,7 +38,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen w-full bg-gradient-hero dark:bg-gradient-hero flex items-center justify-center relative overflow-hidden">
+    <section id="home" className="min-h-screen w-full bg-background flex items-center justify-center relative overflow-hidden" style={{ background: 'var(--gradient-hero)' }}>
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         {[...Array(50)].map((_, i) => (
@@ -115,7 +115,8 @@ const HeroSection = () => {
             <Button 
               onClick={scrollToContact}
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow-primary px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
+              style={{ boxShadow: 'var(--glow-primary)' }}
             >
               Get In Touch
               <i className="fas fa-paper-plane ml-2" />
@@ -125,7 +126,7 @@ const HeroSection = () => {
               onClick={scrollToProjects}
               variant="outline"
               size="lg"
-              className="border-foreground text-foreground hover:bg-foreground hover:text-background dark:border-background dark:text-background dark:hover:bg-background dark:hover:text-foreground px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
+              className="border-primary/50 bg-background/20 backdrop-blur-sm text-foreground hover:bg-primary hover:text-primary-foreground px-8 py-6 text-lg font-semibold hover:scale-105 transition-transform"
             >
               View Portfolio
               <i className="fas fa-arrow-down ml-2" />
