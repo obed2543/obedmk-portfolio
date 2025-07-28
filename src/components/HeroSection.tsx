@@ -38,7 +38,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen w-full bg-background flex items-center justify-center relative overflow-hidden" style={{ background: 'var(--gradient-hero)' }}>
+    <section id="home" className="min-h-screen w-full bg-background flex items-center justify-center relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         {[...Array(50)].map((_, i) => (
