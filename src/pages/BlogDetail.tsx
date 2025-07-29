@@ -166,7 +166,15 @@ const BlogDetail = () => {
           <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold mb-4">Blog Post Not Found</h1>
             <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
-            <Button onClick={() => navigate('/#blogs')}>
+            <Button onClick={() => {
+              navigate('/');
+              setTimeout(() => {
+                const blogsSection = document.getElementById('blogs');
+                if (blogsSection) {
+                  blogsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}>
               Back to Blogs
             </Button>
           </div>
@@ -184,7 +192,15 @@ const BlogDetail = () => {
           {/* Back Button */}
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/#blogs')}
+            onClick={() => {
+              navigate('/');
+              setTimeout(() => {
+                const blogsSection = document.getElementById('blogs');
+                if (blogsSection) {
+                  blogsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}
             className="mb-8 text-muted-foreground hover:text-foreground"
           >
             ← Back to Blogs

@@ -241,7 +241,12 @@ const BlogSection = () => {
                     className="text-primary hover:bg-primary hover:text-primary-foreground group-hover:translate-x-1 transition-transform duration-200"
                     asChild
                   >
-                    <Link to={`/blog/${blog.slug}`}>
+                    <Link 
+                      to={`/blog/${blog.slug}`}
+                      onClick={() => {
+                        setTimeout(() => window.scrollTo(0, 0), 100);
+                      }}
+                    >
                       Read More
                       <i className="fas fa-arrow-right ml-2 text-xs" />
                     </Link>
