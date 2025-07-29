@@ -122,7 +122,7 @@ const Footer = () => {
         {/* Back to Top Button */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-primary text-primary-foreground rounded-full shadow-glow-primary hover:scale-110 transition-all duration-300 z-40"
+          className="fixed bottom-8 right-8 w-12 h-12 bg-primary text-primary-foreground rounded-full shadow-glow-primary hover:scale-105 transition-transform duration-200 z-40 will-change-transform"
           aria-label="Back to top"
         >
           <i className="fas fa-arrow-up" />

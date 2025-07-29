@@ -19,7 +19,7 @@ const ThemeToggle = () => {
       variant="ghost"
       size="sm"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="w-9 h-9 p-0"
+      className="w-9 h-9 p-0 will-change-transform"
     >
       {theme === 'dark' ? (
         <i className="fas fa-sun text-foreground" />
