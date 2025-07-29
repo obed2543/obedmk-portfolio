@@ -76,6 +76,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
+                className="mb-2 sm:mb-4"
               >
                 Hi,
               </motion.div>
@@ -83,6 +84,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
+                className="mb-2 sm:mb-4"
               >
                 I'm <span className="text-accent animate-glow">Obed</span>
               </motion.div>
