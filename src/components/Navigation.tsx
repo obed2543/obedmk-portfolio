@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Drawer, DrawerContent, DrawerTrigger, DrawerClose } from '@/components/ui/drawer';
+import { X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -44,7 +47,12 @@ const Navigation = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false); // Close mobile menu after navigation
     }
+  };
+
+  const handleLogoClick = () => {
+    scrollToSection('home');
   };
 
   return (
@@ -54,14 +62,17 @@ const Navigation = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <button 
+            onClick={handleLogoClick}
+            className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+          >
             <div className="w-10 h-10 bg-gradient-hero rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">O</span>
             </div>
             <span className="text-foreground font-bold text-xl">
               Obed <span className="text-primary">MK</span>
             </span>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -98,14 +109,49 @@ const Navigation = () => {
           {/* Mobile Menu Button & Theme Toggle */}
           <div className="md:hidden flex items-center space-x-2">
             <ThemeToggle />
-            <Button 
-              variant="ghost" 
-              size="sm"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </Button>
+            <Drawer open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <DrawerTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-lg font-semibold">Navigation</h2>
+                  <DrawerClose asChild>
+                    <Button variant="ghost" size="sm">
+                      <X className="w-5 h-5" />
+                    </Button>
+                  </DrawerClose>
+                </div>
+                <div className="flex flex-col space-y-4">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`text-left px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${
+                        activeSection === item.id 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'text-foreground hover:bg-muted'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                  <Button 
+                    onClick={() => scrollToSection('contact')}
+                    className="mt-4"
+                  >
+                    Get In Touch
+                  </Button>
+                </div>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </div>
