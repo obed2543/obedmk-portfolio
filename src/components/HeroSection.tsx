@@ -57,7 +57,7 @@ const HeroSection = () => {
         ))}
       </div>
 
-      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center z-10 min-h-screen">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center z-10 min-h-screen pt-20 sm:pt-24 lg:pt-12">
         {/* Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
