@@ -3,13 +3,19 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 
+// Import project images
+import diabetesImage from '@/assets/project-diabetes.jpg';
+import salaryImage from '@/assets/project-salary.jpg';
+import evImage from '@/assets/project-ev.jpg';
+import retailImage from '@/assets/project-retail.jpg';
+
 const ProjectsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const projects = [
     {
       title: 'Diabetes Prediction Model',
       description: 'A classification Machine Learning model that enables users to check their Diabetes status, aiming at reducing fear and promoting early detection.',
-      image: '🔬',
+      image: diabetesImage,
       technologies: ['Python', 'Scikit-learn', 'Streamlit', 'Pandas'],
       category: 'Machine Learning',
       demoUrl: 'https://github.com/Obed-Makori/streamlit_dashboard',
@@ -18,7 +24,7 @@ const ProjectsSection = () => {
     {
       title: 'Salary Dashboard & Prediction',
       description: 'Data visualization tool tracking salary trends and distributions with integrated ML for salary predictions, enabling data-driven HR decisions.',
-      image: '💰',
+      image: salaryImage,
       technologies: ['Python', 'Streamlit', 'Plotly', 'ML'],
       category: 'Data Analysis',
       demoUrl: 'https://github.com/Obed-Makori/Salary-Prediction',
@@ -27,7 +33,7 @@ const ProjectsSection = () => {
     {
       title: 'Electric Vehicle Dashboard',
       description: 'Comprehensive Tableau dashboard tracking key KPIs in electric vehicle usage data, evaluating green energy adoption success in the United States.',
-      image: '🚗',
+      image: evImage,
       technologies: ['Tableau', 'Data Visualization', 'KPI Analysis'],
       category: 'Business Intelligence',
       demoUrl: 'https://public.tableau.com/app/profile/obed.makori3675/viz/EVDashboard_17276813907140/Dashboard?publish=yes',
@@ -36,7 +42,7 @@ const ProjectsSection = () => {
     {
       title: 'RetailX Sales Dashboard',
       description: 'Interactive Power BI dashboard providing insights into daily sales, profit margins, top-selling products, and regional performance for strategic decision making.',
-      image: '📊',
+      image: retailImage,
       technologies: ['Power BI', 'DAX', 'Data Modeling', 'KPI'],
       category: 'Business Intelligence',
       demoUrl: 'https://github.com/Obed-Makori/RetailX-Power-BI-Dashboard',
@@ -90,9 +96,13 @@ const ProjectsSection = () => {
               className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow-primary overflow-hidden"
             >
               <CardHeader className="space-y-4">
-                {/* Project Image/Icon */}
-                <div className="w-full h-48 bg-gradient-card rounded-lg flex items-center justify-center text-6xl group-hover:scale-105 transition-transform duration-300">
-                  {project.image}
+                {/* Project Image */}
+                <div className="w-full h-48 bg-gradient-card rounded-lg overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 {/* Category and Title */}

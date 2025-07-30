@@ -4,6 +4,14 @@ import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// Import blog images
+import mlBiImage from '@/assets/blog-ml-bi.jpg';
+import pythonImage from '@/assets/blog-python.jpg';
+import powerBiImage from '@/assets/blog-powerbi.jpg';
+import etlImage from '@/assets/blog-etl.jpg';
+import futureImage from '@/assets/blog-future.jpg';
+import sqlImage from '@/assets/blog-sql.jpg';
+
 const BlogSection = () => {
   const [visiblePosts, setVisiblePosts] = useState(3);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -36,7 +44,7 @@ const BlogSection = () => {
       readTime: "8 min read",
       category: "Machine Learning",
       tags: ["ML", "BI", "Data Science"],
-      image: "📊"
+      image: mlBiImage
     },
     {
       id: 2,
@@ -59,7 +67,7 @@ const BlogSection = () => {
       readTime: "12 min read",
       category: "Data Analysis",
       tags: ["Python", "Pandas", "NumPy"],
-      image: "🐍"
+      image: pythonImage
     },
     {
       id: 3,
@@ -81,7 +89,7 @@ const BlogSection = () => {
       readTime: "10 min read", 
       category: "Visualization",
       tags: ["Power BI", "Dashboard", "Design"],
-      image: "📈"
+      image: powerBiImage
     },
     {
       id: 4,
@@ -105,7 +113,7 @@ const BlogSection = () => {
       readTime: "15 min read",
       category: "Data Engineering", 
       tags: ["ETL", "Data Pipeline", "SQL"],
-      image: "⚡"
+      image: etlImage
     },
     {
       id: 5,
@@ -127,7 +135,7 @@ const BlogSection = () => {
       readTime: "6 min read",
       category: "Industry Trends",
       tags: ["Trends", "Analytics", "Future"],
-      image: "🔮"
+      image: futureImage
     },
     {
       id: 6,
@@ -151,7 +159,7 @@ const BlogSection = () => {
       readTime: "14 min read",
       category: "Database",
       tags: ["SQL", "Performance", "Optimization"],
-      image: "🚀"
+      image: sqlImage
     }
   ];
 
@@ -206,9 +214,13 @@ const BlogSection = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardHeader className="space-y-4">
-                {/* Blog Image/Icon */}
-                <div className="w-full h-48 bg-gradient-card rounded-lg flex items-center justify-center text-6xl">
-                  {blog.image}
+                {/* Blog Image */}
+                <div className="w-full h-48 bg-gradient-card rounded-lg overflow-hidden">
+                  <img 
+                    src={blog.image} 
+                    alt={blog.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 {/* Category Badge */}
