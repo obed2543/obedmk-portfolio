@@ -1,8 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useState } from 'react';
 
 const ProjectsSection = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const projects = [
     {
       title: 'Diabetes Prediction Model',
@@ -44,6 +46,11 @@ const ProjectsSection = () => {
 
   const categories = ['All', 'Machine Learning', 'Data Analysis', 'Business Intelligence'];
 
+  // Filter projects based on selected category
+  const filteredProjects = selectedCategory === "All" 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory);
+
   return (
     <section id="projects" className="py-20 lg:py-32 bg-background">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,12 +69,13 @@ const ProjectsSection = () => {
           {categories.map((category) => (
             <Button
               key={category}
-              variant={category === 'All' ? 'default' : 'outline'}
+              variant={category === selectedCategory ? 'default' : 'outline'}
               size="sm"
-              className={category === 'All' 
+              className={category === selectedCategory 
                 ? 'bg-primary text-primary-foreground' 
                 : 'border-border hover:bg-primary hover:text-primary-foreground'
               }
+              onClick={() => setSelectedCategory(category)}
             >
               {category}
             </Button>
@@ -76,7 +84,7 @@ const ProjectsSection = () => {
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <Card 
               key={index}
               className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow-primary overflow-hidden"

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const BlogSection = () => {
   const [visiblePosts, setVisiblePosts] = useState(3);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const blogs = [
     {
@@ -156,6 +157,11 @@ const BlogSection = () => {
 
   const categories = ["All", "Machine Learning", "Data Analysis", "Visualization", "Data Engineering", "Industry Trends", "Database"];
 
+  // Filter blogs based on selected category
+  const filteredBlogs = selectedCategory === "All" 
+    ? blogs 
+    : blogs.filter(blog => blog.category === selectedCategory);
+
   return (
     <section id="blogs" className="py-20 lg:py-32 bg-card/50 dark:bg-card/30">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,12 +181,16 @@ const BlogSection = () => {
           {categories.map((category) => (
             <Button
               key={category}
-              variant={category === "All" ? "default" : "outline"}
+              variant={category === selectedCategory ? "default" : "outline"}
               size="sm"
-              className={category === "All" 
+              className={category === selectedCategory 
                 ? "bg-primary text-primary-foreground" 
                 : "border-border hover:bg-primary hover:text-primary-foreground"
               }
+              onClick={() => {
+                setSelectedCategory(category);
+                setVisiblePosts(3); // Reset visible posts when changing category
+              }}
             >
               {category}
             </Button>
@@ -189,7 +199,7 @@ const BlogSection = () => {
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.slice(0, visiblePosts).map((blog, index) => (
+          {filteredBlogs.slice(0, visiblePosts).map((blog, index) => (
             <Card 
               key={blog.id} 
               className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-card hover:-translate-y-2"
@@ -258,14 +268,14 @@ const BlogSection = () => {
         </div>
 
         {/* Load More Button */}
-        {visiblePosts < blogs.length && (
+        {visiblePosts < filteredBlogs.length && (
           <div className="text-center mt-12">
             <Button 
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              onClick={() => setVisiblePosts(prev => Math.min(prev + 3, blogs.length))}
+              onClick={() => setVisiblePosts(prev => Math.min(prev + 3, filteredBlogs.length))}
             >
-              Load More Articles ({blogs.length - visiblePosts} remaining)
+              Load More Articles ({filteredBlogs.length - visiblePosts} remaining)
             </Button>
           </div>
         )}
