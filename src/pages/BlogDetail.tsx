@@ -5,6 +5,14 @@ import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
+// Import blog images
+import mlBiImage from '@/assets/blog-ml-bi.jpg';
+import pythonImage from '@/assets/blog-python.jpg';
+import powerBiImage from '@/assets/blog-powerbi.jpg';
+import etlImage from '@/assets/blog-etl.jpg';
+import futureImage from '@/assets/blog-future.jpg';
+import sqlImage from '@/assets/blog-sql.jpg';
+
 const BlogDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -37,7 +45,7 @@ const BlogDetail = () => {
       readTime: "8 min read",
       category: "Machine Learning",
       tags: ["ML", "BI", "Data Science"],
-      image: "📊"
+      image: mlBiImage
     },
     {
       id: 2,
@@ -60,7 +68,7 @@ const BlogDetail = () => {
       readTime: "12 min read",
       category: "Data Analysis",
       tags: ["Python", "Pandas", "NumPy"],
-      image: "🐍"
+      image: pythonImage
     },
     {
       id: 3,
@@ -82,7 +90,7 @@ const BlogDetail = () => {
       readTime: "10 min read", 
       category: "Visualization",
       tags: ["Power BI", "Dashboard", "Design"],
-      image: "📈"
+      image: powerBiImage
     },
     {
       id: 4,
@@ -106,7 +114,7 @@ const BlogDetail = () => {
       readTime: "15 min read",
       category: "Data Engineering", 
       tags: ["ETL", "Data Pipeline", "SQL"],
-      image: "⚡"
+      image: etlImage
     },
     {
       id: 5,
@@ -128,7 +136,7 @@ const BlogDetail = () => {
       readTime: "6 min read",
       category: "Industry Trends",
       tags: ["Trends", "Analytics", "Future"],
-      image: "🔮"
+      image: futureImage
     },
     {
       id: 6,
@@ -152,7 +160,7 @@ const BlogDetail = () => {
       readTime: "14 min read",
       category: "Database",
       tags: ["SQL", "Performance", "Optimization"],
-      image: "🚀"
+      image: sqlImage
     }
   ];
 
@@ -209,7 +217,11 @@ const BlogDetail = () => {
           {/* Article Header */}
           <Card className="mb-8">
             <CardHeader className="text-center">
-              <div className="text-6xl mb-4">{blog.image}</div>
+              <img 
+                src={blog.image} 
+                alt={blog.title}
+                className="w-full h-64 object-cover rounded-lg mb-4"
+              />
               <CardTitle className="text-4xl lg:text-5xl font-bold mb-4">
                 {blog.title}
               </CardTitle>
