@@ -12,78 +12,81 @@ const BlogContent: React.FC<BlogContentProps> = ({ content }) => {
   
   // Parse the content and handle code blocks and images
   const parseContent = (htmlContent: string) => {
-    // Split content by code blocks
+    // Split content by code blocks and images
     const parts = htmlContent.split(/(<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>|<img[^>]+>)/g);
     
-    return parts.map((part, index) => {
-      // Handle code blocks
-      if (part.startsWith('<pre><code class="language-')) {
-        const langMatch = part.match(/language-(\w+)/);
-        const codeMatch = part.match(/<code[^>]*>([\s\S]*?)<\/code>/);
+    return parts
+      .filter(part => part && part.trim()) // Filter out undefined, null, and empty strings
+      .map((part, index) => {
+        // Handle code blocks
+        if (part && part.startsWith('<pre><code class="language-')) {
+          const langMatch = part.match(/language-(\w+)/);
+          const codeMatch = part.match(/<code[^>]*>([\s\S]*?)<\/code>/);
+          
+          if (langMatch && codeMatch) {
+            const language = langMatch[1];
+            const code = codeMatch[1]
+              .replace(/&lt;/g, '<')
+              .replace(/&gt;/g, '>')
+              .replace(/&amp;/g, '&')
+              .replace(/&quot;/g, '"');
+            
+            return (
+              <div key={index} className="my-6">
+                <SyntaxHighlighter
+                  language={language}
+                  style={theme === 'dark' ? oneDark : oneLight}
+                  customStyle={{
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    lineHeight: '1.5',
+                  }}
+                  showLineNumbers={true}
+                >
+                  {code}
+                </SyntaxHighlighter>
+              </div>
+            );
+          }
+        }
         
-        if (langMatch && codeMatch) {
-          const language = langMatch[1];
-          const code = codeMatch[1]
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&')
-            .replace(/&quot;/g, '"');
+        // Handle images
+        if (part && part.startsWith('<img')) {
+          const srcMatch = part.match(/src="([^"]+)"/);
+          const altMatch = part.match(/alt="([^"]+)"/);
+          const src = srcMatch ? srcMatch[1] : '';
+          const alt = altMatch ? altMatch[1] : '';
           
           return (
             <div key={index} className="my-6">
-              <SyntaxHighlighter
-                language={language}
-                style={theme === 'dark' ? oneDark : oneLight}
-                customStyle={{
-                  borderRadius: '0.5rem',
-                  fontSize: '0.875rem',
-                  lineHeight: '1.5',
-                }}
-                showLineNumbers={true}
-              >
-                {code}
-              </SyntaxHighlighter>
+              <img 
+                src={src} 
+                alt={alt}
+                className="w-full max-w-2xl mx-auto rounded-lg shadow-lg"
+              />
+              {alt && (
+                <p className="text-center text-sm text-muted-foreground mt-2 italic">
+                  {alt}
+                </p>
+              )}
             </div>
           );
         }
-      }
-      
-      // Handle images
-      if (part.startsWith('<img')) {
-        const srcMatch = part.match(/src="([^"]+)"/);
-        const altMatch = part.match(/alt="([^"]+)"/);
-        const src = srcMatch ? srcMatch[1] : '';
-        const alt = altMatch ? altMatch[1] : '';
         
-        return (
-          <div key={index} className="my-6">
-            <img 
-              src={src} 
-              alt={alt}
-              className="w-full max-w-2xl mx-auto rounded-lg shadow-lg"
+        // Handle regular HTML content
+        if (part && !part.match(/^<(pre|img)/)) {
+          return (
+            <div 
+              key={index}
+              className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm"
+              dangerouslySetInnerHTML={{ __html: part }}
             />
-            {alt && (
-              <p className="text-center text-sm text-muted-foreground mt-2 italic">
-                {alt}
-              </p>
-            )}
-          </div>
-        );
-      }
-      
-      // Handle regular HTML content
-      if (part && !part.match(/^<(pre|img)/)) {
-        return (
-          <div 
-            key={index}
-            className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm"
-            dangerouslySetInnerHTML={{ __html: part }}
-          />
-        );
-      }
-      
-      return null;
-    });
+          );
+        }
+        
+        return null;
+      })
+      .filter(Boolean); // Remove any null elements
   };
 
   return <div className="space-y-4">{parseContent(content)}</div>;
