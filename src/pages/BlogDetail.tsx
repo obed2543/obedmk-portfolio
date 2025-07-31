@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import BlogContent from '@/components/BlogContent';
 
 // Import blog images
 import mlBiImage from '@/assets/blog-ml-bi.jpg';
@@ -55,14 +56,53 @@ const BlogDetail = () => {
       content: `
         <h2>Essential Python Libraries</h2>
         <p><strong>Pandas:</strong> The cornerstone of data manipulation in Python. Provides powerful data structures like DataFrames and Series for handling structured data efficiently.</p>
+        
+        <pre><code class="language-python">import pandas as pd
+import numpy as np
+
+# Create a DataFrame
+df = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie'],
+    'age': [25, 30, 35],
+    'salary': [50000, 60000, 70000]
+})
+
+# Basic operations
+print(df.head())
+print(df.describe())</code></pre>
+        
         <p><strong>NumPy:</strong> Foundation for numerical computing. Offers support for large multi-dimensional arrays and mathematical functions.</p>
+        
+        <pre><code class="language-python"># NumPy array operations
+arr = np.array([1, 2, 3, 4, 5])
+print(f"Mean: {np.mean(arr)}")
+print(f"Standard deviation: {np.std(arr)}")</code></pre>
+        
         <p><strong>Matplotlib & Seaborn:</strong> Visualization libraries for creating static, interactive, and publication-quality plots.</p>
         
         <h2>Data Cleaning Techniques</h2>
         <p>Handle missing values with fillna(), dropna(), and interpolation methods. Use string methods for text cleaning and regex for pattern matching.</p>
         
+        <pre><code class="language-python"># Handle missing values
+df_cleaned = df.dropna()  # Remove rows with NaN
+df_filled = df.fillna(df.mean())  # Fill with mean
+
+# String cleaning
+df['name'] = df['name'].str.lower().str.strip()</code></pre>
+        
         <h2>Advanced Analysis</h2>
         <p>Leverage groupby operations, pivot tables, and merge/join operations for complex data transformations. Time series analysis with datetime indexing.</p>
+        
+        <pre><code class="language-python"># GroupBy operations
+grouped = df.groupby('department')['salary'].mean()
+
+# Pivot tables
+pivot = df.pivot_table(values='salary', index='department', columns='year')
+
+# Time series
+df['date'] = pd.to_datetime(df['date'])
+df.set_index('date', inplace=True)
+monthly_avg = df.resample('M').mean()</code></pre>
       `,
       date: "Dec 10, 2024", 
       readTime: "12 min read",
@@ -240,10 +280,7 @@ const BlogDetail = () => {
           {/* Article Content */}
           <Card>
             <CardContent className="p-8">
-              <div 
-                className="prose prose-lg max-w-none dark:prose-invert"
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-              />
+              <BlogContent content={blog.content} />
               
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mt-8 pt-8 border-t border-border">
