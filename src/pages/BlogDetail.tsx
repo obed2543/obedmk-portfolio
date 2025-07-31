@@ -13,6 +13,8 @@ import powerBiImage from '@/assets/blog-powerbi.jpg';
 import etlImage from '@/assets/blog-etl.jpg';
 import futureImage from '@/assets/blog-future.jpg';
 import sqlImage from '@/assets/blog-sql.jpg';
+import dataPipelineImage from '@/assets/blog-data-pipeline.jpg';
+import dashboardExampleImage from '@/assets/blog-dashboard-example.jpg';
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -201,6 +203,293 @@ monthly_avg = df.resample('M').mean()</code></pre>
       category: "Database",
       tags: ["SQL", "Performance", "Optimization"],
       image: sqlImage
+    },
+    {
+      id: 7,
+      slug: "complete-data-pipeline-tutorial",
+      title: "Building a Complete Data Pipeline: From Raw Data to Interactive Dashboards",
+      excerpt: "A comprehensive tutorial showing how to build an end-to-end data pipeline with code examples and visual demonstrations.",
+      content: `
+        <h2>Introduction</h2>
+        <p>In this comprehensive tutorial, we'll build a complete data pipeline from scratch. You'll learn how to extract data from various sources, transform it using Python, and create beautiful dashboards for data visualization.</p>
+        
+        <img src="${dataPipelineImage}" alt="Modern data pipeline architecture showing the flow from data sources through ETL processes to analytics and dashboards" />
+        
+        <h2>Setting Up the Environment</h2>
+        <p>First, let's set up our Python environment with the necessary libraries for our data pipeline:</p>
+        
+        <pre><code class="language-bash"># Install required packages
+pip install pandas numpy sqlalchemy psycopg2-binary requests beautifulsoup4
+pip install matplotlib seaborn plotly dash
+pip install apache-airflow</code></pre>
+        
+        <h2>Step 1: Data Extraction</h2>
+        <p>We'll start by creating functions to extract data from different sources - APIs, databases, and CSV files:</p>
+        
+        <pre><code class="language-python">import pandas as pd
+import requests
+from sqlalchemy import create_engine
+import json
+
+def extract_from_api(url, headers=None):
+    """Extract data from REST API"""
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"API extraction failed: {e}")
+        return None
+
+def extract_from_database(connection_string, query):
+    """Extract data from SQL database"""
+    try:
+        engine = create_engine(connection_string)
+        df = pd.read_sql_query(query, engine)
+        return df
+    except Exception as e:
+        print(f"Database extraction failed: {e}")
+        return None
+
+def extract_from_csv(file_path):
+    """Extract data from CSV file"""
+    try:
+        df = pd.read_csv(file_path)
+        return df
+    except Exception as e:
+        print(f"CSV extraction failed: {e}")
+        return None
+
+# Example usage
+sales_data = extract_from_csv('sales_data.csv')
+customer_data = extract_from_database(
+    'postgresql://user:pass@localhost/db', 
+    'SELECT * FROM customers'
+)
+weather_data = extract_from_api('https://api.weather.com/v1/current')</code></pre>
+        
+        <h2>Step 2: Data Transformation</h2>
+        <p>Now we'll clean and transform our data to make it analysis-ready:</p>
+        
+        <pre><code class="language-python">def clean_sales_data(df):
+    """Clean and standardize sales data"""
+    # Remove duplicates
+    df = df.drop_duplicates()
+    
+    # Handle missing values
+    df['revenue'] = df['revenue'].fillna(0)
+    df['customer_id'] = df['customer_id'].fillna('UNKNOWN')
+    
+    # Standardize date formats
+    df['sale_date'] = pd.to_datetime(df['sale_date'])
+    
+    # Create derived columns
+    df['year'] = df['sale_date'].dt.year
+    df['month'] = df['sale_date'].dt.month
+    df['quarter'] = df['sale_date'].dt.quarter
+    
+    return df
+
+def merge_datasets(sales_df, customer_df):
+    """Merge sales and customer data"""
+    merged_df = sales_df.merge(
+        customer_df, 
+        on='customer_id', 
+        how='left'
+    )
+    
+    # Calculate customer lifetime value
+    clv = merged_df.groupby('customer_id')['revenue'].sum().reset_index()
+    clv.columns = ['customer_id', 'lifetime_value']
+    
+    final_df = merged_df.merge(clv, on='customer_id')
+    return final_df
+
+# Transform the data
+cleaned_sales = clean_sales_data(sales_data)
+final_dataset = merge_datasets(cleaned_sales, customer_data)</code></pre>
+        
+        <h2>Step 3: Data Loading and Storage</h2>
+        <p>Next, we'll load our transformed data into a data warehouse:</p>
+        
+        <pre><code class="language-python">def load_to_warehouse(df, table_name, connection_string):
+    """Load data to warehouse"""
+    try:
+        engine = create_engine(connection_string)
+        df.to_sql(
+            table_name, 
+            engine, 
+            if_exists='replace', 
+            index=False,
+            method='multi',
+            chunksize=1000
+        )
+        print(f"Successfully loaded {len(df)} rows to {table_name}")
+    except Exception as e:
+        print(f"Loading failed: {e}")
+
+# Load to warehouse
+warehouse_conn = 'postgresql://warehouse_user:pass@warehouse_host/analytics_db'
+load_to_warehouse(final_dataset, 'sales_analytics', warehouse_conn)</code></pre>
+        
+        <h2>Step 4: Creating Dashboards</h2>
+        <p>Finally, let's create an interactive dashboard to visualize our data:</p>
+        
+        <img src="${dashboardExampleImage}" alt="Professional dashboard interface showing various data visualizations including charts, metrics, and interactive filters" />
+        
+        <pre><code class="language-python">import plotly.graph_objects as go
+import plotly.express as px
+from dash import Dash, html, dcc, Input, Output
+
+app = Dash(__name__)
+
+# Create visualizations
+def create_revenue_chart(df):
+    """Create monthly revenue trend chart"""
+    monthly_revenue = df.groupby(['year', 'month'])['revenue'].sum().reset_index()
+    monthly_revenue['date'] = pd.to_datetime(monthly_revenue[['year', 'month']].assign(day=1))
+    
+    fig = px.line(
+        monthly_revenue, 
+        x='date', 
+        y='revenue',
+        title='Monthly Revenue Trend',
+        labels={'revenue': 'Revenue ($)', 'date': 'Month'}
+    )
+    
+    fig.update_layout(
+        template='plotly_white',
+        height=400,
+        title_font_size=16
+    )
+    
+    return fig
+
+def create_customer_segmentation(df):
+    """Create customer segmentation chart"""
+    segments = df.groupby('customer_segment')['lifetime_value'].agg(['count', 'mean']).reset_index()
+    
+    fig = go.Figure(data=[
+        go.Bar(
+            x=segments['customer_segment'],
+            y=segments['count'],
+            name='Customer Count',
+            yaxis='y'
+        ),
+        go.Scatter(
+            x=segments['customer_segment'],
+            y=segments['mean'],
+            name='Average CLV',
+            yaxis='y2',
+            mode='lines+markers'
+        )
+    ])
+    
+    fig.update_layout(
+        title='Customer Segmentation Analysis',
+        yaxis=dict(title='Number of Customers'),
+        yaxis2=dict(title='Average CLV ($)', overlaying='y', side='right'),
+        template='plotly_white'
+    )
+    
+    return fig
+
+# Dashboard layout
+app.layout = html.Div([
+    html.H1('Sales Analytics Dashboard', className='text-center'),
+    
+    dcc.Graph(
+        id='revenue-chart',
+        figure=create_revenue_chart(final_dataset)
+    ),
+    
+    dcc.Graph(
+        id='segmentation-chart',
+        figure=create_customer_segmentation(final_dataset)
+    )
+])
+
+if __name__ == '__main__':
+    app.run_server(debug=True)</code></pre>
+        
+        <h2>Step 5: Automation with Apache Airflow</h2>
+        <p>To make our pipeline production-ready, let's create an Airflow DAG for automation:</p>
+        
+        <pre><code class="language-python">from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
+from datetime import datetime, timedelta
+
+default_args = {
+    'owner': 'data-team',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': True,
+    'email_on_retry': False,
+    'retries': 2,
+    'retry_delay': timedelta(minutes=5)
+}
+
+dag = DAG(
+    'sales_data_pipeline',
+    default_args=default_args,
+    description='Complete sales data pipeline',
+    schedule_interval='@daily',
+    catchup=False
+)
+
+def run_extraction():
+    """Run data extraction tasks"""
+    # Your extraction code here
+    pass
+
+def run_transformation():
+    """Run data transformation tasks"""
+    # Your transformation code here
+    pass
+
+def run_loading():
+    """Run data loading tasks"""
+    # Your loading code here
+    pass
+
+# Define tasks
+extract_task = PythonOperator(
+    task_id='extract_data',
+    python_callable=run_extraction,
+    dag=dag
+)
+
+transform_task = PythonOperator(
+    task_id='transform_data',
+    python_callable=run_transformation,
+    dag=dag
+)
+
+load_task = PythonOperator(
+    task_id='load_data',
+    python_callable=run_loading,
+    dag=dag
+)
+
+# Set task dependencies
+extract_task >> transform_task >> load_task</code></pre>
+        
+        <h2>Best Practices and Tips</h2>
+        <p><strong>Data Quality:</strong> Always implement data validation checks at each stage of your pipeline.</p>
+        <p><strong>Error Handling:</strong> Use try-catch blocks and implement proper logging for debugging.</p>
+        <p><strong>Scalability:</strong> Design your pipeline to handle increasing data volumes.</p>
+        <p><strong>Monitoring:</strong> Set up alerts for pipeline failures and data quality issues.</p>
+        
+        <h2>Conclusion</h2>
+        <p>Building a complete data pipeline requires careful planning and implementation of each component. By following this tutorial, you now have a solid foundation for creating robust, scalable data pipelines that can handle real-world business requirements.</p>
+        
+        <p>The combination of proper data extraction, transformation, loading, and visualization creates a powerful system that can drive data-driven decision making in any organization.</p>
+      `,
+      date: "Jan 2, 2025",
+      readTime: "20 min read",
+      category: "Data Engineering",
+      tags: ["Python", "ETL", "Dashboard", "Airflow", "Pipeline"],
+      image: dataPipelineImage
     }
   ];
 

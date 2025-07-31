@@ -11,6 +11,7 @@ import powerBiImage from '@/assets/blog-powerbi.jpg';
 import etlImage from '@/assets/blog-etl.jpg';
 import futureImage from '@/assets/blog-future.jpg';
 import sqlImage from '@/assets/blog-sql.jpg';
+import dataPipelineImage from '@/assets/blog-data-pipeline.jpg';
 
 const BlogSection = () => {
   const [visiblePosts, setVisiblePosts] = useState(3);
@@ -160,6 +161,17 @@ const BlogSection = () => {
       category: "Database",
       tags: ["SQL", "Performance", "Optimization"],
       image: sqlImage
+    },
+    {
+      id: 7,
+      slug: "complete-data-pipeline-tutorial", 
+      title: "Building a Complete Data Pipeline: From Raw Data to Interactive Dashboards",
+      excerpt: "A comprehensive tutorial showing how to build an end-to-end data pipeline with code examples and visual demonstrations.",
+      date: "Jan 2, 2025",
+      readTime: "20 min read",
+      category: "Data Engineering",
+      tags: ["Python", "ETL", "Dashboard", "Airflow", "Pipeline"],
+      image: dataPipelineImage
     }
   ];
 
