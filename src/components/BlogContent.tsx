@@ -12,8 +12,11 @@ const BlogContent: React.FC<BlogContentProps> = ({ content }) => {
   
   // Parse the content and handle code blocks and images
   const parseContent = (htmlContent: string) => {
+    console.log('Raw HTML content:', htmlContent.substring(0, 500)); // Debug log
+    
     // Split content by code blocks and images
     const parts = htmlContent.split(/(<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>|<img[^>]+>)/g);
+    console.log('Split parts:', parts.length, parts.slice(0, 5)); // Debug log
     
     return parts
       .filter(part => part && part.trim()) // Filter out undefined, null, and empty strings
@@ -54,8 +57,15 @@ const BlogContent: React.FC<BlogContentProps> = ({ content }) => {
         if (part && part.startsWith('<img')) {
           const srcMatch = part.match(/src="([^"]+)"/);
           const altMatch = part.match(/alt="([^"]+)"/);
-          const src = srcMatch ? srcMatch[1] : '';
+          let src = srcMatch ? srcMatch[1] : '';
           const alt = altMatch ? altMatch[1] : '';
+          
+          // Replace placeholders with actual images
+          if (src === 'PIPELINE_IMAGE_PLACEHOLDER') {
+            src = '/src/assets/blog-data-pipeline.jpg';
+          } else if (src === 'DASHBOARD_IMAGE_PLACEHOLDER') {
+            src = '/src/assets/blog-dashboard-example.jpg';
+          }
           
           return (
             <div key={index} className="my-6">

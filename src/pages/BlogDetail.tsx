@@ -213,7 +213,7 @@ monthly_avg = df.resample('M').mean()</code></pre>
         <h2>Introduction</h2>
         <p>In this comprehensive tutorial, we'll build a complete data pipeline from scratch. You'll learn how to extract data from various sources, transform it using Python, and create beautiful dashboards for data visualization.</p>
         
-        <img src="${dataPipelineImage}" alt="Modern data pipeline architecture showing the flow from data sources through ETL processes to analytics and dashboards" />
+        <img src="PIPELINE_IMAGE_PLACEHOLDER" alt="Modern data pipeline architecture showing the flow from data sources through ETL processes to analytics and dashboards" />
         
         <h2>Setting Up the Environment</h2>
         <p>First, let's set up our Python environment with the necessary libraries for our data pipeline:</p>
@@ -335,7 +335,7 @@ load_to_warehouse(final_dataset, 'sales_analytics', warehouse_conn)</code></pre>
         <h2>Step 4: Creating Dashboards</h2>
         <p>Finally, let's create an interactive dashboard to visualize our data:</p>
         
-        <img src="${dashboardExampleImage}" alt="Professional dashboard interface showing various data visualizations including charts, metrics, and interactive filters" />
+        <img src="DASHBOARD_IMAGE_PLACEHOLDER" alt="Professional dashboard interface showing various data visualizations including charts, metrics, and interactive filters" />
         
         <pre><code class="language-python">import plotly.graph_objects as go
 import plotly.express as px
