@@ -2,6 +2,9 @@ import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTheme } from 'next-themes';
+import { Button } from '@/components/ui/button';
+import { Copy, Check } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface BlogContentProps {
   content: string;
@@ -9,6 +12,30 @@ interface BlogContentProps {
 
 const BlogContent: React.FC<BlogContentProps> = ({ content }) => {
   const { theme } = useTheme();
+  const { toast } = useToast();
+  const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
+
+  const copyToClipboard = async (code: string, language: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(`${language}-${code.substring(0, 50)}`);
+      toast({
+        title: "Code copied!",
+        description: `${language} code copied to clipboard`,
+      });
+      
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setCopiedCode(null);
+      }, 2000);
+    } catch (err) {
+      toast({
+        title: "Copy failed",
+        description: "Could not copy code to clipboard",
+        variant: "destructive",
+      });
+    }
+  };
   
   // Parse the content and handle code blocks and images
   const parseContent = (htmlContent: string) => {
@@ -34,20 +61,43 @@ const BlogContent: React.FC<BlogContentProps> = ({ content }) => {
               .replace(/&amp;/g, '&')
               .replace(/&quot;/g, '"');
             
+            const isCopied = copiedCode === `${language}-${code.substring(0, 50)}`;
+            
             return (
-              <div key={index} className="my-6">
-                <SyntaxHighlighter
-                  language={language}
-                  style={theme === 'dark' ? oneDark : oneLight}
-                  customStyle={{
-                    borderRadius: '0.5rem',
-                    fontSize: '0.875rem',
-                    lineHeight: '1.5',
-                  }}
-                  showLineNumbers={true}
-                >
-                  {code}
-                </SyntaxHighlighter>
+              <div key={index} className="my-6 relative group">
+                <div className="relative">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-background/80 backdrop-blur-sm"
+                    onClick={() => copyToClipboard(code, language)}
+                  >
+                    {isCopied ? (
+                      <>
+                        <Check className="h-4 w-4 mr-1" />
+                        Copied
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-4 w-4 mr-1" />
+                        Copy
+                      </>
+                    )}
+                  </Button>
+                  <SyntaxHighlighter
+                    language={language}
+                    style={theme === 'dark' ? oneDark : oneLight}
+                    customStyle={{
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      lineHeight: '1.5',
+                      paddingTop: '3rem',
+                    }}
+                    showLineNumbers={true}
+                  >
+                    {code}
+                  </SyntaxHighlighter>
+                </div>
               </div>
             );
           }
