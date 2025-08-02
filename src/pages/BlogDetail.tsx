@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import BlogContent from '@/components/BlogContent';
+import CommentsSection from '@/components/CommentsSection';
 
 // Import blog images
 import mlBiImage from '@/assets/blog-ml-bi.jpg';
@@ -585,6 +586,9 @@ extract_task >> transform_task >> load_task</code></pre>
               </div>
             </CardContent>
           </Card>
+
+          {/* Comments Section */}
+          <CommentsSection blogSlug={blog.slug} />
         </div>
       </article>
       <Footer />
