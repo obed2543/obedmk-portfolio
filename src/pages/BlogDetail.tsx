@@ -544,19 +544,21 @@ extract_task >> transform_task >> load_task</code></pre>
             ← Back to Blogs
           </Button>
 
-          {/* Article Header */}
-          <Card className="mb-8">
-            <CardHeader className="text-center">
+          {/* SEO-Optimized Article Header */}
+          <article className="mb-8">
+            <header>
               <img 
                 src={blog.image} 
-                alt={blog.title}
+                alt={`${blog.title} - Data Analytics and Business Intelligence insights by expert data analyst Obed Makori`}
                 className="w-full h-64 object-cover rounded-lg mb-4"
               />
-              <CardTitle className="text-4xl lg:text-5xl font-bold mb-4">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-center">
                 {blog.title}
-              </CardTitle>
-              <div className="flex items-center justify-center gap-4 text-muted-foreground">
-                <span>{blog.date}</span>
+              </h1>
+              <div className="flex items-center justify-center gap-4 text-muted-foreground mb-4">
+                <span>By Obed Makori - Expert Data Analyst & BI Developer</span>
+                <span>•</span>
+                <time dateTime={blog.date}>{blog.date}</time>
                 <span>•</span>
                 <span>{blog.readTime}</span>
                 <span>•</span>
@@ -564,8 +566,8 @@ extract_task >> transform_task >> load_task</code></pre>
                   {blog.category}
                 </Badge>
               </div>
-            </CardHeader>
-          </Card>
+            </header>
+          </article>
 
           {/* Article Content */}
           <Card>

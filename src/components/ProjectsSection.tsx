@@ -66,7 +66,7 @@ const ProjectsSection = () => {
             Featured <span className="text-primary">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A showcase of real-world applications demonstrating data science and analytics expertise
+            Real-world data analytics projects showcasing expertise in Python, SQL, Power BI, machine learning, and business intelligence solutions
           </p>
         </div>
 

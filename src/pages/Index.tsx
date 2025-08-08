@@ -7,20 +7,24 @@ import ProjectsSection from '@/components/ProjectsSection';
 import BlogSection from '@/components/BlogSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import SEOContent from '@/components/SEOContent';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <WorkSection />
-      <ProjectsSection />
-      <BlogSection />
-      <ContactSection />
-      <Footer />
-    </div>
+    <>
+      <main className="min-h-screen bg-background">
+        <Navigation />
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <WorkSection />
+        <ProjectsSection />
+        <BlogSection />
+        <ContactSection />
+        <Footer />
+        <SEOContent />
+      </main>
+    </>
   );
 };
 

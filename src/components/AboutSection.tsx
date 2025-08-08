@@ -188,19 +188,20 @@ const AboutSection = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Hi there! My name is <span className="text-foreground font-semibold">Obed</span>, and I am a passionate professional with expertise in 
-                  <span className="text-primary"> Business Intelligence (BI)</span>, 
-                  <span className="text-secondary"> Data Analysis</span>, and 
-                  <span className="text-accent"> Machine Learning (ML) Engineering</span>.
+                  Hi there! My name is <span className="text-foreground font-semibold">Obed Makori</span>, and I am an expert 
+                  <span className="text-primary"> Data Analyst</span>, 
+                  <span className="text-secondary"> Business Intelligence Developer</span>, and 
+                  <span className="text-accent"> Analytics Engineer</span> with 3+ years of proven experience transforming complex datasets into strategic business insights.
                 </p>
                 <p>
-                  Currently, I'm expanding my skillset in <strong className="text-foreground">Data Engineering</strong> 
-                  to build end-to-end data solutions that drive business value.
+                  As a certified <strong className="text-foreground">Python specialist</strong> and <strong className="text-foreground">SQL expert</strong>, 
+                  I excel at developing comprehensive BI solutions, interactive Power BI dashboards, predictive machine learning models, 
+                  and automated ETL pipelines that drive measurable business growth and operational efficiency.
                 </p>
                 <p>
-                  I specialize in transforming raw data into actionable insights using cutting-edge tools 
-                  and methodologies. My goal is to help organizations make data-driven decisions that 
-                  propel their growth and success.
+                  My expertise spans the complete data analytics lifecycle - from statistical analysis and data mining to advanced 
+                  data visualization and predictive modeling. I help organizations across industries unlock the full potential 
+                  of their data assets through innovative analytics solutions that deliver actionable insights and competitive advantage.
                 </p>
               </div>
             </div>
@@ -210,20 +211,20 @@ const AboutSection = () => {
               <CardContent className="p-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">Main Tools</p>
-                    <p className="text-foreground font-medium">Python, SQL, Java, Power BI, Tableau</p>
+                    <p className="text-sm text-muted-foreground">Core Technologies</p>
+                    <p className="text-foreground font-medium">Python, SQL, Power BI, Tableau, Excel Advanced Analytics</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">Major</p>
-                    <p className="text-foreground font-medium">Data Science & Analytics</p>
+                    <p className="text-sm text-muted-foreground">Specialization</p>
+                    <p className="text-foreground font-medium">Business Intelligence & Data Analytics Engineering</p>
                   </div>
                   <div className="space-y-2">
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="text-foreground font-medium">Nairobi, Kenya 🇰🇪</p>
+                    <p className="text-foreground font-medium">Nairobi, Kenya 🇰🇪 (Remote Available)</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">Status</p>
-                    <p className="text-primary font-medium">Available for Projects</p>
+                    <p className="text-sm text-muted-foreground">Availability</p>
+                    <p className="text-primary font-medium">Open for Data Analytics Projects</p>
                   </div>
                 </div>
               </CardContent>

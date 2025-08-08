@@ -26,7 +26,7 @@ const SkillsSection = () => {
             Technical <span className="text-primary">Skills</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive toolkit for turning data into actionable insights
+            Expert-level proficiency in data analytics technologies and business intelligence tools for enterprise data solutions
           </p>
         </div>
 

@@ -5,23 +5,23 @@ const WorkSection = () => {
   const services = [
     {
       icon: 'fas fa-square-poll-vertical',
-      title: 'Dashboard Design',
-      description: 'Using tools such as MS Excel, Power BI, Looker and Tableau, I develop data dashboards that provide business insights critical in decision making.',
-      skills: ['Power BI', 'Tableau', 'Looker', 'Excel'],
+      title: 'Business Intelligence Development',
+      description: 'Expert BI developer creating comprehensive Power BI dashboards, Tableau visualizations, and Excel analytics solutions. Transform complex data into executive-ready insights that drive strategic business decisions and revenue growth.',
+      skills: ['Power BI Development', 'Tableau Expert', 'Excel Analytics', 'KPI Dashboards'],
       color: 'skill-bi'
     },
     {
-      icon: 'fas fa-atom',
-      title: 'Model Development', 
-      description: 'I use a mix of Computer Science and Mathematics to clean data and develop both statistical and ML Models.',
-      skills: ['Python', 'Scikit-learn', 'TensorFlow', 'Statistics'],
-      color: 'skill-ml'
+      icon: 'fas fa-database',
+      title: 'Advanced Data Analysis & SQL', 
+      description: 'Professional data analyst specializing in statistical analysis, predictive modeling, and database optimization. Expert SQL developer building efficient ETL pipelines and automated reporting systems for enterprise-scale data processing.',
+      skills: ['Advanced SQL', 'Statistical Analysis', 'ETL Development', 'Database Optimization'],
+      color: 'skill-data'
     },
     {
       icon: 'fab fa-python',
-      title: 'Python for Data Analysis',
-      description: 'I use Python to explore data and provide detailed insights through Exploratory Data Analysis (EDA).',
-      skills: ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn'],
+      title: 'Python Analytics Engineering',
+      description: 'Certified Python specialist delivering end-to-end analytics solutions. From exploratory data analysis to machine learning model deployment, I build scalable Python applications that automate business processes and generate predictive insights.',
+      skills: ['Python Expert', 'Machine Learning', 'Data Mining', 'Automated Analytics'],
       color: 'skill-python'
     }
   ];
@@ -35,7 +35,7 @@ const WorkSection = () => {
             What I <span className="text-primary">Do</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Specialized services that transform raw data into strategic business value
+            Expert data analyst and business intelligence developer delivering enterprise-grade analytics solutions that maximize ROI through data-driven decision making
           </p>
         </div>
 
