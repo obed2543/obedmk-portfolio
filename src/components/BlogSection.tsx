@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Import blog images
 import mlBiImage from '@/assets/blog-ml-bi.jpg';
@@ -186,7 +187,13 @@ const BlogSection = () => {
     <section id="blogs" className="py-20 lg:py-32 bg-card/50 dark:bg-card/30">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">
             Latest <span className="text-primary">Insights</span>
           </h2>
@@ -194,106 +201,212 @@ const BlogSection = () => {
             Sharing knowledge and insights from the world of data analytics, 
             machine learning, and business intelligence.
           </p>
-        </div>
+        </motion.div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {categories.map((category) => (
-            <Button
+        <motion.div 
+          className="flex flex-wrap justify-center gap-2 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.5 }}
+        >
+          {categories.map((category, index) => (
+            <motion.div
               key={category}
-              variant={category === selectedCategory ? "default" : "outline"}
-              size="sm"
-              className={category === selectedCategory 
-                ? "bg-primary text-primary-foreground" 
-                : "border-border hover:bg-primary hover:text-primary-foreground"
-              }
-              onClick={() => {
-                setSelectedCategory(category);
-                setVisiblePosts(3); // Reset visible posts when changing category
+              initial={{ opacity: 0, scale: 0, rotate: -10 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ 
+                duration: 0.3, 
+                delay: 0.4 + (index * 0.1),
+                type: "spring",
+                stiffness: 200
               }}
+              viewport={{ once: false, amount: 0.5 }}
+              whileHover={{ scale: 1.05, rotate: 2 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {category}
-            </Button>
+              <Button
+                variant={category === selectedCategory ? "default" : "outline"}
+                size="sm"
+                className={category === selectedCategory 
+                  ? "bg-primary text-primary-foreground" 
+                  : "border-border hover:bg-primary hover:text-primary-foreground"
+                }
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setVisiblePosts(3); // Reset visible posts when changing category
+                }}
+              >
+                {category}
+              </Button>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredBlogs.slice(0, visiblePosts).map((blog, index) => (
-            <Card 
-              key={blog.id} 
-              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-card hover:-translate-y-2"
-              style={{ animationDelay: `${index * 0.1}s` }}
+            <motion.div
+              key={`${selectedCategory}-${blog.id}`}
+              initial={{ 
+                opacity: 0, 
+                y: 60,
+                x: index % 3 === 0 ? -30 : index % 3 === 2 ? 30 : 0,
+                scale: 0.8,
+                rotate: (index % 2 === 0 ? -2 : 2)
+              }}
+              whileInView={{ 
+                opacity: 1, 
+                y: 0,
+                x: 0,
+                scale: 1,
+                rotate: 0
+              }}
+              transition={{ 
+                duration: 0.7, 
+                delay: 0.3 + (index * 0.15),
+                type: "spring",
+                stiffness: 100
+              }}
+              viewport={{ once: false, amount: 0.2 }}
+              whileHover={{ 
+                scale: 1.02,
+                y: -10,
+                rotate: (index % 2 === 0 ? 1 : -1),
+                transition: { duration: 0.3 }
+              }}
             >
-              <CardHeader className="space-y-4">
-                {/* Blog Image */}
-                <div className="w-full h-48 bg-gradient-card rounded-lg overflow-hidden">
-                  <img 
-                    src={blog.image} 
-                    alt={blog.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                
-                {/* Category Badge */}
-                <div className="flex justify-between items-center">
-                  <Badge variant="secondary" className="bg-primary/10 text-primary">
-                    {blog.category}
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">{blog.readTime}</span>
-                </div>
-
-                <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
-                  {blog.title}
-                </CardTitle>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <CardDescription className="text-muted-foreground leading-relaxed">
-                  {blog.excerpt}
-                </CardDescription>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {blog.tags.map((tag) => (
-                    <Badge 
-                      key={tag} 
-                      variant="outline" 
-                      className="text-xs border-muted hover:border-primary hover:text-primary transition-colors duration-200"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Footer */}
-                <div className="flex justify-between items-center pt-4 border-t border-border">
-                  <span className="text-sm text-muted-foreground">{blog.date}</span>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    className="text-primary hover:bg-primary hover:text-primary-foreground group-hover:translate-x-1 transition-transform duration-200"
-                    asChild
+              <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-card h-full">
+                <CardHeader className="space-y-4">
+                  {/* Blog Image */}
+                  <motion.div 
+                    className="w-full h-48 bg-gradient-card rounded-lg overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <Link 
-                      to={`/blog/${blog.slug}`}
-                      onClick={() => {
-                        setTimeout(() => window.scrollTo(0, 0), 100);
-                      }}
+                    <img 
+                      src={blog.image} 
+                      alt={blog.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                  
+                  {/* Category Badge */}
+                  <motion.div 
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.5 + (index * 0.15) }}
+                    viewport={{ once: false, amount: 0.5 }}
+                  >
+                    <Badge variant="secondary" className="bg-primary/10 text-primary">
+                      {blog.category}
+                    </Badge>
+                    <span className="text-sm text-muted-foreground">{blog.readTime}</span>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.6 + (index * 0.15) }}
+                    viewport={{ once: false, amount: 0.5 }}
+                  >
+                    <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
+                      {blog.title}
+                    </CardTitle>
+                  </motion.div>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.7 + (index * 0.15) }}
+                    viewport={{ once: false, amount: 0.5 }}
+                  >
+                    <CardDescription className="text-muted-foreground leading-relaxed">
+                      {blog.excerpt}
+                    </CardDescription>
+                  </motion.div>
+
+                  {/* Tags */}
+                  <motion.div 
+                    className="flex flex-wrap gap-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.8 + (index * 0.15) }}
+                    viewport={{ once: false, amount: 0.5 }}
+                  >
+                    {blog.tags.map((tag, tagIndex) => (
+                      <motion.div
+                        key={tag}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ 
+                          duration: 0.3, 
+                          delay: 0.9 + (index * 0.15) + (tagIndex * 0.1),
+                          type: "spring",
+                          stiffness: 200
+                        }}
+                        viewport={{ once: false, amount: 0.5 }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Badge 
+                          variant="outline" 
+                          className="text-xs border-muted hover:border-primary hover:text-primary transition-colors duration-200"
+                        >
+                          {tag}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Footer */}
+                  <motion.div 
+                    className="flex justify-between items-center pt-4 border-t border-border"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.0 + (index * 0.15) }}
+                    viewport={{ once: false, amount: 0.5 }}
+                  >
+                    <span className="text-sm text-muted-foreground">{blog.date}</span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="text-primary hover:bg-primary hover:text-primary-foreground group-hover:translate-x-1 transition-transform duration-200"
+                      asChild
                     >
-                      Read More
-                      <i className="fas fa-arrow-right ml-2 text-xs" />
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                      <Link 
+                        to={`/blog/${blog.slug}`}
+                        onClick={() => {
+                          setTimeout(() => window.scrollTo(0, 0), 100);
+                        }}
+                      >
+                        Read More
+                        <motion.i 
+                          className="fas fa-arrow-right ml-2 text-xs"
+                          whileHover={{ x: 5 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
         {/* Load More Button */}
         {visiblePosts < filteredBlogs.length && (
-          <div className="text-center mt-12">
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 30, scale: 0.8 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: false, amount: 0.5 }}
+          >
             <Button 
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
@@ -301,7 +414,7 @@ const BlogSection = () => {
             >
               Load More Articles ({filteredBlogs.length - visiblePosts} remaining)
             </Button>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>
