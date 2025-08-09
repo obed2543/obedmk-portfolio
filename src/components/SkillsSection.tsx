@@ -151,21 +151,33 @@ const SkillsSection = () => {
                     <CardContent className="p-6 text-center">
                       {/* Circular Progress */}
                       <div className="relative w-24 h-24 mx-auto mb-4">
-                        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
-                          <motion.path
+                        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
+                          {/* Background circle */}
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="45"
                             className="text-muted stroke-current"
-                            strokeWidth="3"
+                            strokeWidth="6"
                             fill="none"
-                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                           />
-                          <motion.path
+                          {/* Progress circle */}
+                          <motion.circle
+                            cx="50"
+                            cy="50"
+                            r="45"
                             className="text-primary stroke-current"
-                            strokeWidth="3"
+                            strokeWidth="6"
                             strokeLinecap="round"
                             fill="none"
-                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                            initial={{ strokeDasharray: "0, 100" }}
-                            whileInView={{ strokeDasharray: `${area.percentage}, 100` }}
+                            initial={{ 
+                              strokeDasharray: "0 283", // 2π * 45 ≈ 283
+                              strokeDashoffset: 0 
+                            }}
+                            whileInView={{ 
+                              strokeDasharray: `${(area.percentage / 100) * 283} 283`,
+                              strokeDashoffset: 0
+                            }}
                             transition={{ 
                               duration: 1.5, 
                               delay: 0.9 + (index * 0.2),
@@ -176,8 +188,8 @@ const SkillsSection = () => {
                         </svg>
                         <motion.div 
                           className="absolute inset-0 flex items-center justify-center"
-                          initial={{ scale: 0 }}
-                          whileInView={{ scale: 1 }}
+                          initial={{ scale: 0, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
                           transition={{ 
                             duration: 0.5, 
                             delay: 1.2 + (index * 0.2),
