@@ -1,5 +1,9 @@
+import { useNavigate, useLocation } from 'react-router-dom';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const footerSections = [
     {
@@ -39,9 +43,24 @@ const Footer = () => {
   ];
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace('#', ''));
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const targetId = sectionId.replace('#', '');
+    
+    if (location.pathname !== '/') {
+      // If we're not on the home page, navigate there first
+      navigate('/', { replace: true });
+      // Use setTimeout to ensure navigation completes before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // We're already on the home page, just scroll
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
