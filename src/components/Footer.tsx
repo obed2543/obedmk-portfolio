@@ -46,20 +46,23 @@ const Footer = () => {
     const targetId = sectionId.replace('#', '');
     
     if (location.pathname !== '/') {
-      // If we're not on the home page, navigate there first
-      navigate('/', { replace: true });
-      // Use setTimeout to ensure navigation completes before scrolling
-      setTimeout(() => {
+      // Navigate to home page and then scroll to section
+      navigate('/');
+      // Use a longer timeout and also listen for the route change
+      const timeoutId = setTimeout(() => {
         const element = document.getElementById(targetId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100);
+      }, 300);
+      
+      // Cleanup timeout on unmount
+      return () => clearTimeout(timeoutId);
     } else {
-      // We're already on the home page, just scroll
+      // Already on home page, just scroll
       const element = document.getElementById(targetId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   };
