@@ -132,13 +132,19 @@ const Footer = () => {
             
             <div className="flex space-x-6">
               <button 
-                onClick={() => navigate('/privacy-policy')}
+                onClick={() => {
+                  navigate('/privacy-policy');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
               >
                 Privacy Policy
               </button>
               <button 
-                onClick={() => navigate('/terms-of-service')}
+                onClick={() => {
+                  navigate('/terms-of-service');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
               >
                 Terms of Service
