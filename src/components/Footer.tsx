@@ -131,10 +131,16 @@ const Footer = () => {
             </div>
             
             <div className="flex space-x-6">
-              <button className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+              <button 
+                onClick={() => navigate('/privacy-policy')}
+                className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+              >
                 Privacy Policy
               </button>
-              <button className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+              <button 
+                onClick={() => navigate('/terms-of-service')}
+                className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+              >
                 Terms of Service
               </button>
             </div>
