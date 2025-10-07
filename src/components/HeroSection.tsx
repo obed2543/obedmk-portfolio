@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import Typed from 'typed.js';
+import heroGraphic from '@/assets/hero-graphic.png';
 
 const HeroSection = () => {
   const typedRef = useRef(null);
@@ -189,7 +190,7 @@ const HeroSection = () => {
             />
             
             <motion.div 
-              className="w-80 h-80 lg:w-96 lg:h-96 xl:w-[400px] xl:h-[400px] relative z-10"
+              className="w-80 h-80 lg:w-96 lg:h-96 xl:w-[500px] xl:h-[500px] relative z-10"
               animate={{ 
                 rotateY: [0, 10, 0, -10, 0],
                 rotateX: [0, 5, 0, -5, 0],
@@ -259,7 +260,7 @@ const HeroSection = () => {
               />
               
               <motion.div 
-                className="w-full h-full bg-gradient-to-br from-card/40 to-card/20 dark:from-card/60 dark:to-card/40 rounded-3xl backdrop-blur-sm border border-border/50 flex items-center justify-center shadow-card relative overflow-hidden"
+                className="w-full h-full rounded-3xl backdrop-blur-sm border border-border/50 flex items-center justify-center shadow-card relative overflow-hidden"
                 whileHover={{ scale: 1.02, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -276,15 +277,16 @@ const HeroSection = () => {
                   }}
                 />
                 
-                <motion.div 
-                  className="w-72 h-72 lg:w-80 lg:h-80 xl:w-88 xl:h-88 bg-gradient-to-br from-accent via-primary to-secondary rounded-2xl flex items-center justify-center text-7xl lg:text-8xl xl:text-9xl font-bold text-primary-foreground shadow-glow-primary relative z-10"
+                <motion.img
+                  src={heroGraphic}
+                  alt="High-dimensional data visualization with neural networks and AI elements"
+                  className="w-full h-full object-cover rounded-2xl relative z-10"
                   animate={{ 
-                    boxShadow: [
-                      "0 0 30px hsl(var(--primary) / 0.4)",
-                      "0 0 60px hsl(var(--primary) / 0.7)",
-                      "0 0 30px hsl(var(--primary) / 0.4)"
-                    ],
-                    rotateY: [0, 5, 0, -5, 0]
+                    filter: [
+                      "brightness(1) saturate(1)",
+                      "brightness(1.1) saturate(1.2)",
+                      "brightness(1) saturate(1)"
+                    ]
                   }}
                   transition={{ 
                     duration: 4,
@@ -293,26 +295,9 @@ const HeroSection = () => {
                   }}
                   whileHover={{ 
                     scale: 1.05,
-                    boxShadow: "0 0 80px hsl(var(--primary) / 0.8)"
+                    filter: "brightness(1.2) saturate(1.3)"
                   }}
-                >
-                  <motion.span
-                    animate={{ 
-                      textShadow: [
-                        "0 0 20px hsl(var(--accent) / 0.5)",
-                        "0 0 40px hsl(var(--accent) / 0.8)",
-                        "0 0 20px hsl(var(--accent) / 0.5)"
-                      ]
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  >
-                    O
-                  </motion.span>
-                </motion.div>
+                />
               </motion.div>
             </motion.div>
           </div>
