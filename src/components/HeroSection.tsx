@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import Typed from 'typed.js';
-import heroGraphic from '@/assets/hero-graphic.png';
+import heroPerson from '@/assets/hero-person-3d.png';
 
 const HeroSection = () => {
   const typedRef = useRef(null);
@@ -167,20 +167,55 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Image Content */}
+        {/* 3D Person Image - Aligned with Social Links */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="hidden lg:flex items-center justify-center w-full h-full"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            y: [0, -20, 0],
+          }}
+          transition={{ 
+            opacity: { duration: 0.8, delay: 0.4 },
+            scale: { duration: 0.8, delay: 0.4 },
+            y: { 
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
+          }}
+          className="hidden lg:flex items-end justify-center w-full h-full pb-12"
         >
-          <div className="w-full h-full flex items-center justify-center">
+          <motion.div
+            animate={{ 
+              rotateY: [0, 10, 0, -10, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{ perspective: "1000px" }}
+            className="relative"
+          >
             <img
-              src={heroGraphic}
-              alt="High-dimensional data visualization with neural networks and AI elements"
-              className="w-full h-auto max-h-[600px] object-contain rounded-2xl"
+              src={heroPerson}
+              alt="3D rendered data analyst professional working with holographic data visualizations"
+              className="w-full h-auto max-h-[500px] object-contain drop-shadow-2xl"
             />
-          </div>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-full blur-3xl -z-10"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </motion.div>
         </motion.div>
       </div>
 
