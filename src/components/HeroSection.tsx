@@ -167,7 +167,7 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* 3D Person Image - Aligned with Social Links */}
+        {/* 3D Person Image - Upper Half Coverage */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ 
@@ -184,7 +184,7 @@ const HeroSection = () => {
               ease: "easeInOut"
             }
           }}
-          className="hidden lg:flex items-end justify-center w-full h-full pb-12"
+          className="hidden lg:flex items-start justify-center w-full h-full pt-8"
         >
           <motion.div
             animate={{ 
@@ -196,12 +196,12 @@ const HeroSection = () => {
               ease: "easeInOut"
             }}
             style={{ perspective: "1000px" }}
-            className="relative"
+            className="relative w-full h-full flex items-start justify-center"
           >
             <img
               src={heroPerson}
               alt="3D rendered data analyst professional working with holographic data visualizations"
-              className="w-full h-auto max-h-[500px] object-contain drop-shadow-2xl"
+              className="w-full h-auto max-h-[700px] object-contain drop-shadow-2xl"
             />
             <motion.div
               className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-full blur-3xl -z-10"
