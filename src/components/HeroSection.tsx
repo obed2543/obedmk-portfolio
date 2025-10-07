@@ -169,137 +169,17 @@ const HeroSection = () => {
 
         {/* Image Content */}
         <motion.div
-          initial={{ opacity: 0, x: 50, scale: 0.8 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 100 }}
-          className="flex justify-center lg:justify-end relative"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="hidden lg:flex items-center justify-center w-full h-full"
         >
-          <div className="relative w-full max-w-lg">
-            {/* Glowing background effects */}
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-secondary/20 rounded-full blur-3xl"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3]
-              }}
-              transition={{ 
-                duration: 4,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src={heroGraphic}
+              alt="High-dimensional data visualization with neural networks and AI elements"
+              className="w-full h-auto max-h-[600px] object-contain rounded-2xl"
             />
-            
-            <motion.div 
-              className="w-80 h-80 lg:w-96 lg:h-96 xl:w-[500px] xl:h-[500px] relative z-10"
-              animate={{ 
-                rotateY: [0, 10, 0, -10, 0],
-                rotateX: [0, 5, 0, -5, 0],
-                y: [0, -10, 0]
-              }}
-              transition={{ 
-                duration: 6,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
-            >
-              {/* Floating elements around the image */}
-              <motion.div 
-                className="absolute -top-6 -left-6 w-12 h-12 bg-gradient-to-br from-accent to-primary rounded-2xl shadow-lg"
-                animate={{ 
-                  y: [0, -15, 0],
-                  rotate: [0, 180, 360],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              />
-              <motion.div 
-                className="absolute -top-2 right-8 w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full shadow-lg"
-                animate={{ 
-                  y: [0, -20, 0],
-                  x: [0, 10, 0],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 1
-                }}
-              />
-              <motion.div 
-                className="absolute bottom-8 -left-4 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full shadow-lg"
-                animate={{ 
-                  y: [0, -12, 0],
-                  scale: [1, 1.3, 1],
-                  rotate: [0, 180, 0]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 0.5
-                }}
-              />
-              <motion.div 
-                className="absolute -bottom-4 right-4 w-10 h-10 bg-gradient-to-br from-accent to-secondary rounded-lg shadow-lg"
-                animate={{ 
-                  y: [0, -8, 0],
-                  x: [0, -5, 0],
-                  rotate: [0, -90, 0]
-                }}
-                transition={{ 
-                  duration: 3.5,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 2
-                }}
-              />
-              
-              <motion.div 
-                className="w-full h-full rounded-3xl backdrop-blur-sm border border-border/50 flex items-center justify-center shadow-card relative overflow-hidden"
-                whileHover={{ scale: 1.02, rotate: 2 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                {/* Inner glow effect */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 rounded-3xl"
-                  animate={{ 
-                    opacity: [0.3, 0.6, 0.3]
-                  }}
-                  transition={{ 
-                    duration: 3,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                />
-                
-                <motion.img
-                  src={heroGraphic}
-                  alt="High-dimensional data visualization with neural networks and AI elements"
-                  className="w-full h-full object-cover rounded-2xl relative z-10"
-                  animate={{ 
-                    filter: [
-                      "brightness(1) saturate(1)",
-                      "brightness(1.1) saturate(1.2)",
-                      "brightness(1) saturate(1)"
-                    ]
-                  }}
-                  transition={{ 
-                    duration: 4,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    filter: "brightness(1.2) saturate(1.3)"
-                  }}
-                />
-              </motion.div>
-            </motion.div>
           </div>
         </motion.div>
       </div>
