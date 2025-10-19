@@ -200,6 +200,70 @@ const HeroSection = () => {
               }}
             />
           ))}
+          {/* Floating AI badges */}
+          <motion.div 
+            className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg"
+            animate={{ 
+              y: [0, -15, 0],
+              rotate: [0, 12, 0],
+              scale: [1, 1.05, 1]
+            }}
+            transition={{ 
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            <i className="fas fa-brain text-2xl text-white" />
+          </motion.div>
+          <motion.div 
+            className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg"
+            animate={{ 
+              y: [0, -12, 0],
+              rotate: [0, -10, 0],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1
+            }}
+          >
+            <i className="fas fa-robot text-2xl text-white" />
+          </motion.div>
+          <motion.div 
+            className="absolute top-10 -left-6 w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg"
+            animate={{ 
+              x: [0, -8, 0],
+              y: [0, -10, 0],
+              rotate: [0, 15, 0]
+            }}
+            transition={{ 
+              duration: 3.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.5
+            }}
+          >
+            <i className="fas fa-microchip text-lg text-white" />
+          </motion.div>
+          <motion.div 
+            className="absolute bottom-16 -right-6 w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg"
+            animate={{ 
+              x: [0, 8, 0],
+              y: [0, -8, 0],
+              rotate: [0, -12, 0]
+            }}
+            transition={{ 
+              duration: 4.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 2
+            }}
+          >
+            <i className="fas fa-network-wired text-xl text-white" />
+          </motion.div>
           <img
             src={heroGraphic}
             alt="Data analytics visualization and business intelligence dashboard illustration"

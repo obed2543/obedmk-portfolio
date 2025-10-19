@@ -59,6 +59,70 @@ const AboutSection = () => {
                   }}
                 />
               ))}
+              {/* Floating skill badges */}
+              <motion.div 
+                className="absolute -top-8 -right-8 w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-lg"
+                animate={{ 
+                  y: [0, -15, 0],
+                  rotate: [0, 12, 0],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{ 
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                <i className="fab fa-python text-2xl text-primary-foreground" />
+              </motion.div>
+              <motion.div 
+                className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center shadow-lg"
+                animate={{ 
+                  y: [0, -12, 0],
+                  rotate: [0, -10, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 1
+                }}
+              >
+                <i className="fas fa-chart-bar text-2xl text-primary-foreground" />
+              </motion.div>
+              <motion.div 
+                className="absolute top-8 -left-4 w-12 h-12 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center shadow-lg"
+                animate={{ 
+                  x: [0, -8, 0],
+                  y: [0, -10, 0],
+                  rotate: [0, 15, 0]
+                }}
+                transition={{ 
+                  duration: 3.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 0.5
+                }}
+              >
+                <i className="fas fa-database text-lg text-primary-foreground" />
+              </motion.div>
+              <motion.div 
+                className="absolute bottom-12 -right-4 w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-lg"
+                animate={{ 
+                  x: [0, 8, 0],
+                  y: [0, -8, 0],
+                  rotate: [0, -12, 0]
+                }}
+                transition={{ 
+                  duration: 4.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 2
+                }}
+              >
+                <i className="fas fa-chart-pie text-xl text-primary-foreground" />
+              </motion.div>
               <img
                 src={heroPerson}
                 alt="3D rendered data analyst professional in blue suit"
