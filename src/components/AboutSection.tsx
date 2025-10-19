@@ -34,6 +34,31 @@ const AboutSection = () => {
               }}
               className="relative"
             >
+              {/* Motion particles around image */}
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute bg-primary rounded-full"
+                  style={{
+                    width: `${Math.random() * 8 + 4}px`,
+                    height: `${Math.random() * 8 + 4}px`,
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
+                  animate={{
+                    x: [0, Math.random() * 50 - 25, 0],
+                    y: [0, Math.random() * 50 - 25, 0],
+                    opacity: [0.2, 0.7, 0.2],
+                    scale: [1, 1.8, 1],
+                  }}
+                  transition={{
+                    duration: Math.random() * 4 + 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: Math.random() * 2,
+                  }}
+                />
+              ))}
               <img
                 src={heroPerson}
                 alt="3D rendered data analyst professional in blue suit"
