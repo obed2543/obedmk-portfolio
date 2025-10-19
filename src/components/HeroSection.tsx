@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import Typed from 'typed.js';
-import heroPerson from '@/assets/hero-person-3d.png';
+import heroGraphic from '@/assets/hero-graphic.png';
+
 
 const HeroSection = () => {
   const typedRef = useRef(null);
@@ -167,55 +168,18 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* 3D Person Image - Upper Half Coverage */}
+        {/* Hero Graphic */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ 
-            opacity: 1, 
-            scale: 1,
-            y: [0, -20, 0],
-          }}
-          transition={{ 
-            opacity: { duration: 0.8, delay: 0.4 },
-            scale: { duration: 0.8, delay: 0.4 },
-            y: { 
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }
-          }}
-          className="hidden lg:flex items-start justify-center w-full h-full pt-8"
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="hidden lg:block"
         >
-          <motion.div
-            animate={{ 
-              rotateY: [0, 10, 0, -10, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{ perspective: "1000px" }}
-            className="relative w-full h-full flex items-start justify-center"
-          >
-            <img
-              src={heroPerson}
-              alt="3D rendered data analyst professional working with holographic data visualizations"
-              className="w-full h-auto max-h-[700px] object-contain drop-shadow-2xl"
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-full blur-3xl -z-10"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
+          <img
+            src={heroGraphic}
+            alt="Data analytics visualization and business intelligence dashboard illustration"
+            className="w-full h-auto drop-shadow-2xl"
+          />
         </motion.div>
       </div>
 
