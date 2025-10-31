@@ -27,7 +27,7 @@
     --muted: 210 40% 95%;
     --muted-foreground: 220 20% 40%;
 
-    --accent: 45 100% 55%;
+    --accent: 210 100% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -38,15 +38,15 @@
     --ring: 200 100% 50%;
     
     /* Portfolio-specific colors */
-    --skill-python: 45 100% 50%;
+    --skill-python: 200 100% 50%;
     --skill-data: 200 100% 50%;
     --skill-ml: 260 60% 55%;
-    --skill-bi: 45 100% 55%;
+    --skill-bi: 210 100% 55%;
     
     /* Gradients for light mode */
     --gradient-hero: linear-gradient(135deg, hsl(200 100% 50%), hsl(260 60% 55%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
-    --gradient-skill: linear-gradient(90deg, hsl(200 100% 50%), hsl(45 100% 55%));
+    --gradient-skill: linear-gradient(90deg, hsl(200 100% 50%), hsl(210 100% 55%));
     
     /* Shadows and effects for light mode */
     --glow-primary: 0 0 20px hsl(200 100% 50% / 0.2);
@@ -88,7 +88,7 @@
     --muted: 220 15% 15%;
     --muted-foreground: 210 20% 65%;
 
-    --accent: 45 100% 65%;
+    --accent: 210 100% 65%;
     --accent-foreground: 220 20% 4%;
 
     --destructive: 0 84% 60%;
@@ -99,15 +99,15 @@
     --ring: 200 100% 60%;
     
     /* Portfolio-specific colors maintained */
-    --skill-python: 45 100% 50%;
+    --skill-python: 200 100% 60%;
     --skill-data: 200 100% 60%;
     --skill-ml: 260 60% 65%;
-    --skill-bi: 45 100% 65%;
+    --skill-bi: 210 100% 65%;
     
     /* Gradients and effects for dark mode */
     --gradient-hero: linear-gradient(135deg, hsl(200 100% 60%), hsl(260 60% 65%));
     --gradient-card: linear-gradient(145deg, hsl(220 15% 8%), hsl(220 15% 12%));
-    --gradient-skill: linear-gradient(90deg, hsl(200 100% 60%), hsl(45 100% 65%));
+    --gradient-skill: linear-gradient(90deg, hsl(200 100% 60%), hsl(210 100% 65%));
     
     --glow-primary: 0 0 20px hsl(200 100% 60% / 0.3);
     --glow-secondary: 0 0 30px hsl(260 60% 65% / 0.2);
