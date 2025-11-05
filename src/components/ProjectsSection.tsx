@@ -3,57 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-
-// Import project images
-import diabetesImage from '@/assets/project-diabetes.jpg';
-import salaryImage from '@/assets/project-salary.jpg';
-import evImage from '@/assets/project-ev.jpg';
-import retailImage from '@/assets/project-retail.jpg';
+import { Link } from 'react-router-dom';
+import { projects, categories } from '@/data/projects';
 
 const ProjectsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleProjects, setVisibleProjects] = useState(4);
-  
-  const projects = [
-    {
-      title: 'Diabetes Prediction Model',
-      description: 'A classification Machine Learning model that enables users to check their Diabetes status, aiming at reducing fear and promoting early detection.',
-      image: diabetesImage,
-      technologies: ['Python', 'Scikit-learn', 'Streamlit', 'Pandas'],
-      category: 'Machine Learning',
-      demoUrl: 'https://github.com/Obed-Makori/streamlit_dashboard',
-      githubUrl: 'https://github.com/Obed-Makori/streamlit_dashboard'
-    },
-    {
-      title: 'Salary Dashboard & Prediction',
-      description: 'Data visualization tool tracking salary trends and distributions with integrated ML for salary predictions, enabling data-driven HR decisions.',
-      image: salaryImage,
-      technologies: ['Python', 'Streamlit', 'Plotly', 'ML'],
-      category: 'Data Analysis',
-      demoUrl: 'https://github.com/Obed-Makori/Salary-Prediction',
-      githubUrl: 'https://github.com/Obed-Makori/Salary-Prediction'
-    },
-    {
-      title: 'Electric Vehicle Dashboard',
-      description: 'Comprehensive Tableau dashboard tracking key KPIs in electric vehicle usage data, evaluating green energy adoption success in the United States.',
-      image: evImage,
-      technologies: ['Tableau', 'Data Visualization', 'KPI Analysis'],
-      category: 'Business Intelligence',
-      demoUrl: 'https://public.tableau.com/app/profile/obed.makori3675/viz/EVDashboard_17276813907140/Dashboard?publish=yes',
-      githubUrl: '#'
-    },
-    {
-      title: 'RetailX Sales Dashboard',
-      description: 'Interactive Power BI dashboard providing insights into daily sales, profit margins, top-selling products, and regional performance for strategic decision making.',
-      image: retailImage,
-      technologies: ['Power BI', 'DAX', 'Data Modeling', 'KPI'],
-      category: 'Business Intelligence',
-      demoUrl: 'https://github.com/Obed-Makori/RetailX-Power-BI-Dashboard',
-      githubUrl: 'https://github.com/Obed-Makori/RetailX-Power-BI-Dashboard'
-    }
-  ];
-
-  const categories = ['All', 'Machine Learning', 'Data Analysis', 'Business Intelligence'];
 
   // Filter projects based on selected category
   const filteredProjects = selectedCategory === "All" 
@@ -262,7 +217,7 @@ const ProjectsSection = () => {
                     </div>
                   </motion.div>
 
-                  {/* Action Buttons */}
+                   {/* Action Buttons */}
                   <motion.div 
                     className="flex gap-3 pt-4"
                     initial={{ opacity: 0, y: 20 }}
@@ -274,30 +229,27 @@ const ProjectsSection = () => {
                       asChild
                       className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
                     >
+                      <Link to={`/projects/${project.slug}`}>
+                        <motion.i 
+                          className="fas fa-eye mr-2"
+                          whileHover={{ scale: 1.2 }}
+                        />
+                        View Details
+                      </Link>
+                    </Button>
+                    <Button 
+                      asChild
+                      variant="outline"
+                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                    >
                       <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                         <motion.i 
                           className="fas fa-external-link-alt mr-2"
                           whileHover={{ scale: 1.2 }}
                         />
-                        View Project
+                        Demo
                       </a>
                     </Button>
-                    {project.githubUrl !== '#' && (
-                      <Button 
-                        asChild
-                        variant="outline"
-                        className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                      >
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <motion.i 
-                            className="fab fa-github mr-2"
-                            whileHover={{ scale: 1.2, rotate: 360 }}
-                            transition={{ duration: 0.5 }}
-                          />
-                          Code
-                        </a>
-                      </Button>
-                    )}
                   </motion.div>
                 </CardContent>
               </Card>
