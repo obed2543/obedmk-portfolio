@@ -76,6 +76,14 @@ const ProjectsSection = () => {
   const loadMoreProjects = () => {
     setVisibleProjects(prev => prev + 4);
   };
+  
+  // Show less projects
+  const showLessProjects = () => {
+    setVisibleProjects(4);
+    // Scroll to projects section
+    const element = document.getElementById('projects');
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section id="projects" className="py-20 lg:py-32 bg-background">
@@ -297,15 +305,15 @@ const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* Load More Button */}
-        {hasMoreProjects && (
-          <motion.div 
-            className="text-center mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: false, amount: 0.3 }}
-          >
+        {/* Load More / Show Less Buttons */}
+        <motion.div 
+          className="text-center mt-12 flex gap-4 justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          {hasMoreProjects && (
             <Button
               onClick={loadMoreProjects}
               variant="outline"
@@ -319,8 +327,23 @@ const ProjectsSection = () => {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
             </Button>
-          </motion.div>
-        )}
+          )}
+          {visibleProjects > 4 && (
+            <Button
+              onClick={showLessProjects}
+              variant="outline"
+              size="lg"
+              className="border-muted-foreground text-muted-foreground hover:bg-muted hover:text-foreground"
+            >
+              Show Less
+              <motion.i 
+                className="fas fa-chevron-up ml-2"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </Button>
+          )}
+        </motion.div>
 
         {/* Call to Action */}
         <motion.div 
