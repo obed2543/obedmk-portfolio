@@ -12,6 +12,8 @@ import retailImage from '@/assets/project-retail.jpg';
 
 const ProjectsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [visibleProjects, setVisibleProjects] = useState(4);
+  
   const projects = [
     {
       title: 'Diabetes Prediction Model',
@@ -57,6 +59,23 @@ const ProjectsSection = () => {
   const filteredProjects = selectedCategory === "All" 
     ? projects 
     : projects.filter(project => project.category === selectedCategory);
+  
+  // Show only the first 'visibleProjects' number of projects
+  const displayedProjects = filteredProjects.slice(0, visibleProjects);
+  
+  // Check if there are more projects to load
+  const hasMoreProjects = filteredProjects.length > visibleProjects;
+  
+  // Reset visible projects when category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setVisibleProjects(4);
+  };
+  
+  // Load more projects
+  const loadMoreProjects = () => {
+    setVisibleProjects(prev => prev + 4);
+  };
 
   return (
     <section id="projects" className="py-20 lg:py-32 bg-background">
@@ -107,7 +126,7 @@ const ProjectsSection = () => {
                   ? 'bg-primary text-primary-foreground' 
                   : 'border-border hover:bg-primary hover:text-primary-foreground'
                 }
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => handleCategoryChange(category)}
               >
                 {category}
               </Button>
@@ -117,7 +136,7 @@ const ProjectsSection = () => {
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <motion.div
               key={`${selectedCategory}-${index}`}
               initial={{ 
@@ -277,6 +296,31 @@ const ProjectsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Load More Button */}
+        {hasMoreProjects && (
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: false, amount: 0.3 }}
+          >
+            <Button
+              onClick={loadMoreProjects}
+              variant="outline"
+              size="lg"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground shadow-glow-primary"
+            >
+              Load More Projects
+              <motion.i 
+                className="fas fa-chevron-down ml-2"
+                animate={{ y: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </Button>
+          </motion.div>
+        )}
 
         {/* Call to Action */}
         <motion.div 
