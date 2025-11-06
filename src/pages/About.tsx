@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 
 const About = () => {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   return (

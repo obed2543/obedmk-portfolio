@@ -398,24 +398,49 @@ const BlogSection = () => {
           ))}
         </div>
 
-        {/* Load More Button */}
-        {visiblePosts < filteredBlogs.length && (
-          <motion.div 
-            className="text-center mt-12"
-            initial={{ opacity: 0, y: 30, scale: 0.8 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: false, amount: 0.5 }}
-          >
+        {/* Load More / Show Less Buttons */}
+        <motion.div 
+          className="text-center mt-12 flex gap-4 justify-center"
+          initial={{ opacity: 0, y: 30, scale: 0.8 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: false, amount: 0.5 }}
+        >
+          {visiblePosts < filteredBlogs.length && (
             <Button 
               variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              size="lg"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground shadow-glow-primary"
               onClick={() => setVisiblePosts(prev => Math.min(prev + 3, filteredBlogs.length))}
             >
-              Load More Articles ({filteredBlogs.length - visiblePosts} remaining)
+              Load More Articles
+              <motion.i 
+                className="fas fa-chevron-down ml-2"
+                animate={{ y: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
             </Button>
-          </motion.div>
-        )}
+          )}
+          {visiblePosts > 3 && (
+            <Button
+              onClick={() => {
+                setVisiblePosts(3);
+                const element = document.getElementById('blogs');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+              }}
+              variant="outline"
+              size="lg"
+              className="border-muted-foreground text-muted-foreground hover:bg-muted hover:text-foreground"
+            >
+              Show Less
+              <motion.i 
+                className="fas fa-chevron-up ml-2"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </Button>
+          )}
+        </motion.div>
       </div>
     </section>
   );
