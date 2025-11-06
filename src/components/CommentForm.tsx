@@ -5,6 +5,20 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { z } from 'zod';
+
+// Input validation schema
+const commentSchema = z.object({
+  authorName: z.string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters" })
+    .max(100, { message: "Name must be less than 100 characters" })
+    .regex(/^[a-zA-Z\s'-]+$/, { message: "Name contains invalid characters" }),
+  content: z.string()
+    .trim()
+    .min(3, { message: "Comment must be at least 3 characters" })
+    .max(1000, { message: "Comment must be less than 1000 characters" })
+});
 
 interface CommentFormProps {
   blogSlug: string;
@@ -23,12 +37,18 @@ const CommentForm = ({ blogSlug, parentId, onCommentAdded, isReply = false, onCa
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!authorName.trim() || !content.trim()) {
-      toast({
-        title: "Please fill in all fields",
-        variant: "destructive"
-      });
-      return;
+    // Validate inputs
+    try {
+      commentSchema.parse({ authorName, content });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive"
+        });
+        return;
+      }
     }
 
     setIsSubmitting(true);
@@ -91,6 +111,7 @@ const CommentForm = ({ blogSlug, parentId, onCommentAdded, isReply = false, onCa
               onChange={(e) => setAuthorName(e.target.value)}
               disabled={isSubmitting}
               required
+              maxLength={100}
             />
           </div>
           <div>
@@ -100,6 +121,7 @@ const CommentForm = ({ blogSlug, parentId, onCommentAdded, isReply = false, onCa
               onChange={(e) => setContent(e.target.value)}
               disabled={isSubmitting}
               required
+              maxLength={1000}
               className="min-h-[100px]"
             />
           </div>

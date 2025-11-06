@@ -1,17 +1,21 @@
+# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://yourdomain.com/sitemap.xml
-
-# Important pages for data analyst keywords
-Allow: /
+# Important pages for SEO
+Allow: /about
+Allow: /projects
+Allow: /projects/*
 Allow: /blog/*
+Allow: /contact
 
-# Block any unwanted crawling
+# Disallow admin or private pages (if any)
 Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 
-# Crawl delay
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl-delay (1 second delay between requests)
 Crawl-delay: 1

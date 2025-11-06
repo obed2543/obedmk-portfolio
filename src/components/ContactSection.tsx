@@ -7,6 +7,45 @@ import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
+import { z } from 'zod';
+
+// Input validation schema
+const contactSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters" })
+    .max(100, { message: "Name must be less than 100 characters" })
+    .regex(/^[a-zA-Z\s'-]+$/, { message: "Name contains invalid characters" }),
+  email: z.string()
+    .trim()
+    .email({ message: "Invalid email address" })
+    .max(255, { message: "Email must be less than 255 characters" }),
+  phone: z.string()
+    .trim()
+    .max(20, { message: "Phone number must be less than 20 characters" })
+    .regex(/^[+\d\s()-]*$/, { message: "Phone number contains invalid characters" })
+    .optional()
+    .or(z.literal('')),
+  subject: z.string()
+    .trim()
+    .min(3, { message: "Subject must be at least 3 characters" })
+    .max(200, { message: "Subject must be less than 200 characters" }),
+  message: z.string()
+    .trim()
+    .min(10, { message: "Message must be at least 10 characters" })
+    .max(2000, { message: "Message must be less than 2000 characters" })
+});
+
+// Sanitize HTML to prevent XSS
+const sanitizeHtml = (str: string): string => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+};
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -32,6 +71,15 @@ const ContactSection = () => {
   };
 
   const sendEmail = async () => {
+    // Sanitize all user inputs before sending
+    const sanitizedData = {
+      name: sanitizeHtml(formData.name.trim()),
+      email: sanitizeHtml(formData.email.trim()),
+      phone: sanitizeHtml(formData.phone.trim()),
+      subject: sanitizeHtml(formData.subject.trim()),
+      message: sanitizeHtml(formData.message.trim())
+    };
+
     const bodyMessage = `
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9;">
       <div style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -39,11 +87,11 @@ const ContactSection = () => {
           <h2 style="margin: 0;">Contact Form Submission</h2>
         </div>
         <div style="padding: 20px;">
-          <p style="margin-bottom: 10px;"><strong>Full Name:</strong> ${formData.name}</p>
-          <p style="margin-bottom: 10px;"><strong>Email:</strong> ${formData.email}</p>
-          <p style="margin-bottom: 10px;"><strong>Phone Number:</strong> ${formData.phone}</p>
-          <p style="margin-bottom: 10px;"><strong>Subject:</strong> ${formData.subject}</p>
-          <p style="margin-bottom: 10px;"><strong>Message:</strong> ${formData.message}</p>
+          <p style="margin-bottom: 10px;"><strong>Full Name:</strong> ${sanitizedData.name}</p>
+          <p style="margin-bottom: 10px;"><strong>Email:</strong> ${sanitizedData.email}</p>
+          <p style="margin-bottom: 10px;"><strong>Phone Number:</strong> ${sanitizedData.phone}</p>
+          <p style="margin-bottom: 10px;"><strong>Subject:</strong> ${sanitizedData.subject}</p>
+          <p style="margin-bottom: 10px;"><strong>Message:</strong> ${sanitizedData.message}</p>
         </div>
         <div style="background-color: #007bff; color: #ffffff; border-radius: 0 0 10px 10px; padding: 10px;">
         <span style="margin: 0;">&copy;Obed Makori</span>
@@ -53,12 +101,12 @@ const ContactSection = () => {
   `;
 
     const params = {
-      email: formData.email,
-      subject: formData.subject,
-      phone: formData.phone,
+      email: sanitizedData.email,
+      subject: sanitizedData.subject,
+      phone: sanitizedData.phone,
       bodyMessage: bodyMessage,
-      from_name: formData.name,
-      message: formData.message
+      from_name: sanitizedData.name,
+      message: sanitizedData.message
     };
 
     try {
@@ -89,6 +137,21 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form data
+    try {
+      contactSchema.parse(formData);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        await Swal.fire({
+          icon: "error",
+          title: "Validation Error",
+          text: error.errors[0].message
+        });
+        return;
+      }
+    }
+    
     setIsSubmitting(true);
     await sendEmail();
     setIsSubmitting(false);
@@ -227,6 +290,7 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       placeholder="Your full name"
                       required
+                      maxLength={100}
                       className="bg-input border-border focus:border-primary"
                     />
                   </div>
@@ -239,6 +303,7 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       placeholder="your.email@example.com"
                       required
+                      maxLength={255}
                       className="bg-input border-border focus:border-primary"
                     />
                   </div>
@@ -253,6 +318,7 @@ const ContactSection = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+254 XXX XXX XXX"
+                      maxLength={20}
                       className="bg-input border-border focus:border-primary"
                     />
                   </div>
@@ -264,6 +330,7 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       placeholder="Project discussion"
                       required
+                      maxLength={200}
                       className="bg-input border-border focus:border-primary"
                     />
                   </div>
@@ -278,6 +345,7 @@ const ContactSection = () => {
                     placeholder="Tell me about your project or how I can help..."
                     rows={5}
                     required
+                    maxLength={2000}
                     className="bg-input border-border focus:border-primary resize-none"
                   />
                 </div>
