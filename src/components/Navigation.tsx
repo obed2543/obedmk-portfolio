@@ -22,21 +22,39 @@ const Navigation = () => {
     { id: 'contact', label: 'Contact' },
   ];
 
+  // Update active section based on route
+  useEffect(() => {
+    if (location.pathname.startsWith('/projects')) {
+      setActiveSection('projects');
+    } else if (location.pathname.startsWith('/blog')) {
+      setActiveSection('blogs');
+    } else if (location.pathname.startsWith('/about')) {
+      setActiveSection('about');
+    } else if (location.pathname.startsWith('/contact')) {
+      setActiveSection('contact');
+    } else if (location.pathname === '/') {
+      // Only update based on scroll on home page
+      setActiveSection('home');
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Update active section based on scroll position
-      const sections = navItems.map(item => item.id);
-      const scrollPosition = window.scrollY + 100;
+      // Only update active section based on scroll position if on home page
+      if (location.pathname === '/') {
+        const sections = navItems.map(item => item.id);
+        const scrollPosition = window.scrollY + 100;
 
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(sectionId);
-            break;
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const { offsetTop, offsetHeight } = element;
+            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+              setActiveSection(sectionId);
+              break;
+            }
           }
         }
       }
@@ -44,7 +62,7 @@ const Navigation = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const scrollToSection = (sectionId: string) => {
     // If not on home page, navigate there first
