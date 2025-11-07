@@ -93,7 +93,7 @@ const Navigation = () => {
 
   const handleNavClick = (navId: string) => {
     // Check if it's a route or a section
-    const routes = ['about', 'projects', 'contact'];
+    const routes = ['about', 'projects', 'contact', 'blogs'];
     
     if (routes.includes(navId)) {
       // Navigate to dedicated route
