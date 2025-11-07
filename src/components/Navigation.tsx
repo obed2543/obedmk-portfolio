@@ -24,16 +24,12 @@ const Navigation = () => {
 
   // Update active section based on route
   useEffect(() => {
-    if (location.pathname.startsWith('/projects')) {
+    if (location.pathname.startsWith('/projects/')) {
       setActiveSection('projects');
-    } else if (location.pathname.startsWith('/blog')) {
+    } else if (location.pathname.startsWith('/blog/')) {
       setActiveSection('blogs');
-    } else if (location.pathname.startsWith('/about')) {
-      setActiveSection('about');
-    } else if (location.pathname.startsWith('/contact')) {
-      setActiveSection('contact');
     } else if (location.pathname === '/') {
-      // Only update based on scroll on home page
+      // Update based on scroll on home page
       setActiveSection('home');
     }
   }, [location.pathname]);
@@ -92,17 +88,8 @@ const Navigation = () => {
   };
 
   const handleNavClick = (navId: string) => {
-    // Check if it's a route or a section
-    const routes = ['about', 'projects', 'contact', 'blogs'];
-    
-    if (routes.includes(navId)) {
-      // Navigate to dedicated route
-      navigate(`/${navId}`);
-      setIsMobileMenuOpen(false);
-    } else {
-      // Scroll to section on home page
-      scrollToSection(navId);
-    }
+    // All nav items scroll to sections on home page
+    scrollToSection(navId);
   };
 
   return (
@@ -131,13 +118,13 @@ const Navigation = () => {
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                  (location.pathname === `/${item.id}` || activeSection === item.id)
+                  activeSection === item.id
                     ? 'text-primary' 
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {item.label}
-                {(location.pathname === `/${item.id}` || activeSection === item.id) && (
+                {activeSection === item.id && (
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
                 )}
               </button>
@@ -186,7 +173,7 @@ const Navigation = () => {
                       key={item.id}
                       onClick={() => handleNavClick(item.id)}
                       className={`text-left px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${
-                        (location.pathname === `/${item.id}` || activeSection === item.id)
+                        activeSection === item.id
                           ? 'bg-primary text-primary-foreground' 
                           : 'text-foreground hover:bg-muted'
                       }`}
